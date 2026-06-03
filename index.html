@@ -4,179 +4,220 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
-<title>上海小升初 · 5步规划</title>
+<title>上海小升初 · 深度规划</title>
 <style>
 :root {
-  --primary: #004098; --primary-light: #e8edf6; --primary-dark: #0d2540;
+  --ustc: #004098; --ustc-light: #e8edf6; --ustc-dark: #0d2540;
   --gold: #c8972b; --gold-light: #fdf6e3;
   --bg: #f5f7fa; --card: #fff; --text: #1a1a1a; --text-muted: #666;
   --border: #e5e5e5; --radius: 12px; --shadow: 0 2px 8px rgba(0,0,0,.06);
-  --green: #27ae60; --red: #e74c3c; --orange: #f39c12;
-  --blue: #3498db;
+  --green: #27ae60; --red: #e74c3c; --orange: #f39c12; --blue: #3498db;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body {
-  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  background: var(--bg); color: var(--text); line-height: 1.7;
-}
+body { font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
 
 /* Hero */
 .hero {
-  background: linear-gradient(135deg, var(--primary) 0%, #1a3a6e 40%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, var(--ustc) 0%, #1a3a6e 40%, var(--ustc-dark) 100%);
   color: #fff; padding: 56px 24px 48px; text-align: center; position: relative; overflow: hidden;
 }
 .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,.06) 0%, transparent 60%); }
 .hero h1 { font-size: clamp(22px, 4vw, 34px); font-weight: 800; position: relative; letter-spacing: 1px; }
 .hero .subtitle { font-size: 15px; opacity: .85; margin-top: 8px; position: relative; }
 .hero .badge { display: inline-block; margin-top: 12px; padding: 4px 14px; border: 1px solid rgba(255,255,255,.25); border-radius: 20px; font-size: 11px; opacity: .7; position: relative; }
-.hero .start-btn { display: inline-block; margin-top: 20px; padding: 12px 40px; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; position: relative; transition: .2s; font-family: inherit; }
+.hero .start-btn { display: inline-block; margin-top: 20px; padding: 12px 40px; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; position: relative; transition: .2s; }
 .hero .start-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(200,151,43,.4); }
 
-/* Progress */
-.progress-wrap { max-width: 800px; margin: 0 auto; padding: 24px 16px 0; display: none; }
-.progress-wrap.active { display: block; }
+/* Container */
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+
+/* Progress Bar */
+.progress-wrap { max-width: 800px; margin: 0 auto; padding: 24px 16px 0; }
 .progress-steps { display: flex; justify-content: space-between; position: relative; }
 .progress-steps::before { content: ''; position: absolute; top: 14px; left: 40px; right: 40px; height: 2px; background: var(--border); z-index: 1; }
 .progress-step { display: flex; flex-direction: column; align-items: center; gap: 6px; position: relative; z-index: 2; cursor: pointer; }
 .progress-dot { width: 30px; height: 30px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; transition: .3s; }
-.progress-step.active .progress-dot { background: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+.progress-step.active .progress-dot { background: var(--ustc); box-shadow: 0 0 0 4px var(--ustc-light); }
 .progress-step.done .progress-dot { background: var(--green); }
 .progress-label { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
-.progress-step.active .progress-label { color: var(--primary); font-weight: 600; }
+.progress-step.active .progress-label { color: var(--ustc); font-weight: 600; }
 .progress-step.done .progress-label { color: var(--green); }
 
-/* Reset bar */
-.reset-bar { max-width: 800px; margin: 0 auto; padding: 0 16px; display: none; justify-content: flex-end; }
-.reset-bar.active { display: flex; }
-.reset-link { font-size: 12px; color: var(--text-muted); cursor: pointer; padding: 6px 12px; border-radius: 6px; }
-.reset-link:hover { color: var(--red); }
-
-/* Wizard */
+/* Wizard cards */
 .wizard { display: none; max-width: 800px; margin: 0 auto; padding: 24px 16px 0; }
 .wizard.active { display: block; }
 .wizard-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 24px; border: 1px solid var(--border); }
-.wizard h2 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.wizard h2 { font-size: 18px; font-weight: 700; color: var(--ustc); margin-bottom: 4px; }
 .wizard .step-hint { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
 .wizard .desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
 
 /* Options grid */
 .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.options-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.options-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.options-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 .option-card {
   padding: 14px 12px; border: 2px solid var(--border); border-radius: 10px;
   text-align: center; cursor: pointer; transition: .2s; background: #fff;
 }
-.option-card:hover { border-color: var(--primary-light); background: #f8f9fc; }
-.option-card.selected { border-color: var(--primary); background: var(--primary-light); }
-.option-card .opt-icon { font-size: 22px; display: block; margin-bottom: 4px; }
-.option-card .opt-label { font-size: 13px; font-weight: 600; color: var(--text); }
+.option-card:hover { border-color: var(--ustc-light); background: #f8f9fc; }
+.option-card.selected { border-color: var(--ustc); background: var(--ustc-light); }
+.option-card .opt-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+.option-card .opt-label { font-size: 13px; font-weight: 600; }
 .option-card .opt-desc { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
-.option-card .opt-tag {
-  display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 8px;
-  font-size: 9px; font-weight: 600;
-}
-.opt-tag.top { background: #fde8e8; color: #c0392b; }
-.opt-tag.good { background: #fef3d5; color: #b8860b; }
-.opt-tag.mid { background: #d4edda; color: #155724; }
-.opt-tag.dev { background: #dbeafe; color: #1e40af; }
 
-/* Wizard actions */
+/* Level badges in district cards */
+.level-badge { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; margin-top: 4px; }
+.level-badge.l0 { background: #ffebee; color: #c62828; }
+.level-badge.l1 { background: #fff3e0; color: #e65100; }
+.level-badge.l2 { background: #e8f5e9; color: #2e7d32; }
+.level-badge.l3 { background: #e3f2fd; color: #1565c0; }
+
+/* Nav buttons */
 .wizard-actions { display: flex; gap: 10px; justify-content: space-between; margin-top: 20px; }
 .btn-prev { padding: 10px 20px; background: #fff; color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; }
 .btn-prev:hover { background: #f5f5f5; }
-.btn-next { padding: 10px 28px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: .2s; }
+.btn-next { padding: 10px 28px; background: var(--ustc); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: .2s; }
 .btn-next:hover { opacity: .9; }
 .btn-next:disabled { opacity: .4; cursor: not-allowed; }
 
 /* Results */
-.results-wrap { display: none; max-width: 800px; margin: 0 auto; padding: 24px 16px 80px; }
+.results-wrap { display: none; max-width: 800px; margin: 0 auto; padding: 24px 16px 40px; }
 .results-wrap.active { display: block; }
-.result-summary {
-  background: linear-gradient(135deg, var(--primary-light), #dce8f8);
-  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px;
-  border: 1px solid var(--primary);
-}
-.result-summary h2 { font-size: 16px; color: var(--primary); margin-bottom: 8px; }
-.result-summary .selected-tags { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
-.result-summary .path-title { font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
-.result-summary .path-brief { font-size: 13px; color: #444; line-height: 1.8; }
+.result-summary { background: linear-gradient(135deg, var(--ustc-light), #dce8f8); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; border: 1px solid var(--ustc); }
+.result-summary h2 { font-size: 16px; color: var(--ustc); margin-bottom: 4px; }
+.result-summary p { font-size: 13px; color: var(--text-muted); }
+.result-section { margin-top: 20px; }
+.result-section h3 { font-size: 15px; color: var(--ustc); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--ustc-light); }
 
 .result-card {
   background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
   padding: 20px 22px; margin-bottom: 12px; border: 1px solid var(--border);
-  border-left: 4px solid var(--primary);
+  transition: .2s; border-left: 4px solid var(--ustc);
 }
-.result-card h3 { font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-.result-card ul { list-style: none; }
-.result-card li {
-  font-size: 13px; color: #444; padding: 5px 0 5px 18px; position: relative; line-height: 1.6;
-}
-.result-card li::before { content: '·'; position: absolute; left: 4px; color: var(--primary); font-weight: 700; }
+.result-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+.result-card .rc-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.result-card .rc-name { font-size: 16px; font-weight: 700; color: var(--ustc); }
+.result-card .rc-sub { font-size: 12px; color: var(--text-muted); }
+.result-card .rc-type { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+.result-card .rc-type.gongban { background: #e3f2fd; color: #1565c0; }
+.result-card .rc-type.minban { background: #f3e5f5; color: #7b1fa2; }
+.result-card .rc-type.teshu { background: #fce4ec; color: #c62828; }
+.result-card .rc-reason { font-size: 13px; padding: 10px 14px; background: #f8f9fb; border-radius: 8px; margin: 8px 0; line-height: 1.6; }
+.result-card .rc-detail { font-size: 12px; color: var(--text-muted); display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin-top: 6px; }
+.result-card .rc-detail dt { color: #888; }
+.result-card .rc-detail dd { }
+.result-card .rc-score { margin-top: 8px; }
+.result-card .rc-score-bar { height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; margin-top: 2px; }
+.result-card .rc-score-fill { height: 100%; border-radius: 3px; transition: width .6s; }
+.result-card .rc-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 9px; margin: 1px; font-weight: 600; }
 
-.timeline-item {
-  padding: 10px 0; border-left: 2px solid var(--primary); padding-left: 16px; margin-left: 4px;
-}
-.timeline-item:not(:last-child) { border-left: 2px solid var(--primary-light); }
-.timeline-item .tl-time { font-size: 11px; color: var(--gold); font-weight: 600; }
-.timeline-item .tl-event { font-size: 14px; font-weight: 600; color: var(--text); }
-.timeline-item .tl-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+/* Timeline */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: var(--ustc-light); }
+.tl-item { position: relative; margin-bottom: 14px; }
+.tl-item::before { content: ''; position: absolute; left: -22px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--ustc); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--ustc-light); }
+.tl-month { font-size: 12px; font-weight: 700; color: var(--ustc); }
+.tl-event { font-size: 12px; color: var(--text); margin-top: 2px; }
+.tl-detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* Checklist */
+.checklist-item { display: flex; gap: 10px; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; align-items: flex-start; }
+.checklist-item:nth-child(even) { background: #f8f9fb; }
+.checklist-item .cl-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+.checklist-item .cl-text { font-size: 12px; }
+.checklist-item .cl-month { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-right: 4px; }
+.cl-month.cl-urgent { background: #ffebee; color: #c62828; }
+.cl-month.cl-warn { background: #fff3e0; color: #e65100; }
+.cl-month.cl-safe { background: #e8f5e9; color: #2e7d32; }
+
+/* Risk card */
+.risk-card { padding: 12px 16px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid; }
+.risk-card.r-high { background: #fff5f5; border-color: var(--red); }
+.risk-card.r-mid { background: #fff8e8; border-color: var(--orange); }
+.risk-card.r-low { background: #f0f4fa; border-color: var(--blue); }
+.risk-card .risk-title { font-size: 13px; font-weight: 700; }
+.risk-card .risk-title.r-high { color: var(--red); }
+.risk-card .risk-title.r-mid { color: var(--orange); }
+.risk-card .risk-title.r-low { color: var(--blue); }
+.risk-card .risk-body { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* District policy detail */
+.policy-box { background: #f8f9fc; border-radius: 8px; padding: 14px 18px; font-size: 12px; line-height: 1.8; border: 1px solid var(--border); }
 
 /* Toast */
-.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--red); color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 13px; z-index: 999; display: none; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--red); color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 13px; z-index: 999; display: none; box-shadow: 0 4px 20px rgba(0,0,0,.15); animation: fadeIn .3s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-/* Confetti */
-.confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 200; }
-.confetti-piece { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: confetti-fall 3s ease-in forwards; }
-@keyframes confetti-fall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
+/* Reset */
+.reset-bar { max-width: 800px; margin: 0 auto; padding: 0 16px; display: flex; justify-content: flex-end; }
+.reset-link { font-size: 12px; color: var(--text-muted); cursor: pointer; padding: 6px 12px; border-radius: 6px; }
+.reset-link:hover { color: var(--red); }
 
-/* responsive */
+/* Confetti animation */
+@keyframes confetti { 0% { opacity: 0; transform: translateY(0) rotate(0); } 50% { opacity: 1; } 100% { opacity: 0; transform: translateY(-120px) rotate(720deg); } }
+.confetti-piece { position: fixed; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; z-index: 1000; animation: confetti 1.5s ease-out forwards; }
+
+/* Table styling */
+.data-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.data-table th { background: var(--ustc); color: #fff; padding: 6px 8px; text-align: left; font-weight: 600; }
+.data-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.data-table tr:nth-child(even) td { background: #f8f9fb; }
+
+/* Responsive */
 @media (max-width: 768px) {
   .hero { padding: 40px 16px 32px; }
   .hero h1 { font-size: 20px; }
   .hero .subtitle { font-size: 13px; }
-  .start-btn { padding: 10px 28px; font-size: 14px; }
+  .hero .start-btn { padding: 10px 28px; font-size: 14px; }
   .wizard-card { padding: 20px 16px; }
   .wizard h2 { font-size: 16px; }
   .result-summary { padding: 16px; }
   .result-card { padding: 14px 16px; }
+  .rc-name { font-size: 14px; }
+  .options-grid.cols-4 { grid-template-columns: repeat(3, 1fr); }
+  .options-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 480px) {
   .hero { padding: 32px 12px 24px; }
   .hero h1 { font-size: 18px; }
   .hero .badge { font-size: 10px; }
-  .hero .start-btn { margin-top: 14px; }
-
+  .hero .start-btn { margin-top: 14px; width: 100%; max-width: 280px; }
   .progress-wrap { padding: 16px 8px 0; }
   .progress-steps::before { top: 10px; left: 12px; right: 12px; }
   .progress-dot { width: 22px; height: 22px; font-size: 10px; }
-  .progress-label { font-size: 9px; text-align: center; }
+  .progress-label { font-size: 9px; max-width: 70px; overflow: visible; text-align: center; line-height: 1.2; }
   .progress-step { gap: 3px; }
-
   .wizard-card { padding: 16px 12px; border-radius: 8px; }
   .wizard h2 { font-size: 15px; }
   .wizard .desc { font-size: 12px; }
-
   .options-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .options-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  .options-grid.cols-3 { grid-template-columns: 1fr 1fr; }
   .option-card { padding: 10px 8px; }
-  .option-card .opt-icon { font-size: 18px; }
+  .option-card .opt-icon { font-size: 16px; }
   .option-card .opt-label { font-size: 12px; }
   .option-card .opt-desc { font-size: 9px; }
-
   .wizard-actions { flex-direction: column; gap: 8px; }
   .wizard-actions .btn-prev,
   .wizard-actions .btn-next { width: 100%; text-align: center; }
-
   .result-summary { padding: 12px 14px; }
   .result-summary h2 { font-size: 14px; }
-  .result-summary .path-title { font-size: 16px; }
-  .result-summary .path-brief { font-size: 12px; }
-  .result-card { padding: 12px 14px; }
-  .result-card h3 { font-size: 14px; }
-  .result-card li { font-size: 12px; }
+  .result-summary p { font-size: 11px; }
+  .result-card { padding: 12px 14px; margin-bottom: 8px; }
+  .rc-name { font-size: 13px; }
+  .rc-sub { font-size: 11px; }
+  .rc-reason { font-size: 11px; padding: 8px 10px; }
+  .rc-detail { font-size: 10px; }
+  .reset-link { font-size: 11px; }
+  footer { font-size: 10px; padding: 16px; }
+}
+@media (max-width: 360px) {
+  .options-grid { grid-template-columns: 1fr; }
+  .progress-label { max-width: 40px; font-size: 7px; }
+  .progress-steps::before { left: 6px; right: 6px; }
+  .progress-dot { width: 18px; height: 18px; font-size: 8px; }
 }
 </style>
 </head>
@@ -187,553 +228,840 @@ body {
 
 <!-- Hero -->
 <header class="hero">
-  <h1>上海小升初 &middot; 5步规划</h1>
-  <p class="subtitle">输入孩子基本情况，5步选择获得定制升学方案</p>
-  <div class="badge">上海16区全覆盖 &middot; 公办/民办/三公/国际</div>
-  <button class="start-btn" onclick="startWizard()">开始规划我的小升初方案</button>
+  <h1>上海小升初 深度规划系统</h1>
+  <p class="subtitle">数据驱动 · 个性化推荐 · 2026升学指南</p>
+  <div class="badge">基于2025-2026年最新数据</div>
+  <button class="start-btn" onclick="startWizard()">开始规划升学方案</button>
 </header>
 
-<!-- Progress Bar -->
-<div class="progress-wrap" id="progressWrap">
-  <div class="progress-steps" id="progressSteps"></div>
+<!-- Progress -->
+<div class="progress-wrap" id="progressWrap" style="display:none">
+  <div class="progress-steps">
+    <div class="progress-step" onclick="goStep(0)"><div class="progress-dot">1</div><div class="progress-label">所在区</div></div>
+    <div class="progress-step" onclick="goStep(1)"><div class="progress-dot">2</div><div class="progress-label">户籍</div></div>
+    <div class="progress-step" onclick="goStep(2)"><div class="progress-dot">3</div><div class="progress-label">学业水平</div></div>
+    <div class="progress-step" onclick="goStep(3)"><div class="progress-dot">4</div><div class="progress-label">升学偏好</div></div>
+    <div class="progress-step" onclick="goStep(4)"><div class="progress-dot">5</div><div class="progress-label">发展目标</div></div>
+  </div>
 </div>
 
-<!-- Reset -->
-<div class="reset-bar" id="resetBar">
-  <span class="reset-link" onclick="restart()">重新开始</span>
+<div class="reset-bar" id="resetBar" style="display:none">
+  <span class="reset-link" onclick="resetAll()">重新规划</span>
 </div>
 
 <!-- Step 1: 所在区 -->
-<div class="wizard active" id="step1">
+<div class="wizard active" id="step0">
   <div class="wizard-card">
-    <h2>孩子户籍/居住证在哪个区？</h2>
+    <h2>你家在上海哪个区？</h2>
     <p class="step-hint">第1步 / 共5步</p>
-    <p class="desc">上海16区教育资源差异较大，选择所在区。不同区的公办对口政策和民办资源各不相同。</p>
-    <div class="options-grid" id="step1Options"></div>
+    <p class="desc">上海16区教育资源差异显著。徐汇、杨浦为教育顶级区，黄浦市重名额比例最高。选择所在区后系统将优先推荐本区学校。</p>
+    <div class="options-grid" id="districtGrid"></div>
     <div class="wizard-actions">
       <span></span>
-      <button class="btn-next" id="step1Next" disabled onclick="goStep(2)">下一步 →</button>
+      <button class="btn-next" id="step0Btn" onclick="nextStep(0)" disabled>下一步 →</button>
     </div>
   </div>
 </div>
 
-<!-- Step 2: 户籍/居住 -->
-<div class="wizard" id="step2">
+<!-- Step 2: 户籍情况 -->
+<div class="wizard" id="step1">
   <div class="wizard-card">
-    <h2>户籍和房产情况</h2>
+    <h2>你的户籍情况是什么？</h2>
     <p class="step-hint">第2步 / 共5步</p>
-    <p class="desc">户籍和房产状态决定对口入学优先级，不同情况的入学路径差异很大。</p>
-    <div class="options-grid" id="step2Options"></div>
+    <p class="desc">户籍类型决定公办入学的优先级排序，直接影响摇号失败后能否回对口公办。这是上海小升初最关键的决策因素之一。</p>
+    <div class="options-grid cols-3" id="hukouGrid"></div>
     <div class="wizard-actions">
-      <button class="btn-prev" onclick="goStep(1)">← 上一步</button>
-      <button class="btn-next" id="step2Next" disabled onclick="goStep(3)">下一步 →</button>
+      <button class="btn-prev" onclick="prevStep(1)">← 上一步</button>
+      <button class="btn-next" id="step1Btn" onclick="nextStep(1)" disabled>下一步 →</button>
     </div>
   </div>
 </div>
 
 <!-- Step 3: 学业水平 -->
-<div class="wizard" id="step3">
+<div class="wizard" id="step2">
   <div class="wizard-card">
-    <h2>孩子目前的学业水平</h2>
+    <h2>孩子目前的学业水平？</h2>
     <p class="step-hint">第3步 / 共5步</p>
-    <p class="desc">客观评估孩子学业水平。这影响民办摇号策略和三公/特殊类学校的选择。</p>
-    <div class="options-grid" id="step3Options"></div>
+    <p class="desc">客观评估学业水平有助于匹配合适层次的初中。上海小升初虽无统一考试，但小学阶段的成绩表现、竞赛获奖、综合素质评价是学校关注的核心。</p>
+    <div class="options-grid cols-2" id="academicGrid"></div>
     <div class="wizard-actions">
-      <button class="btn-prev" onclick="goStep(2)">← 上一步</button>
-      <button class="btn-next" id="step3Next" disabled onclick="goStep(4)">下一步 →</button>
+      <button class="btn-prev" onclick="prevStep(2)">← 上一步</button>
+      <button class="btn-next" id="step2Btn" onclick="nextStep(2)" disabled>下一步 →</button>
     </div>
   </div>
 </div>
 
 <!-- Step 4: 升学偏好 -->
-<div class="wizard" id="step4">
+<div class="wizard" id="step3">
   <div class="wizard-card">
-    <h2>您倾向的升学路径</h2>
+    <h2>你倾向哪种升学路径？</h2>
     <p class="step-hint">第4步 / 共5步</p>
-    <p class="desc">不同的升学路径对应不同的准备策略和时间节点。</p>
-    <div class="options-grid" id="step4Options"></div>
+    <p class="desc">不同路径的策略完全不同：民办摇号看重运气和调剂策略，公办对口看户籍排序，三公冲刺看硬通货证书。选择偏好后系统将重点推荐对应类型学校。</p>
+    <div class="options-grid" id="preferenceGrid"></div>
     <div class="wizard-actions">
-      <button class="btn-prev" onclick="goStep(3)">← 上一步</button>
-      <button class="btn-next" id="step4Next" disabled onclick="goStep(5)">下一步 →</button>
+      <button class="btn-prev" onclick="prevStep(3)">← 上一步</button>
+      <button class="btn-next" id="step3Btn" onclick="nextStep(3)" disabled>下一步 →</button>
     </div>
   </div>
 </div>
 
 <!-- Step 5: 发展目标 -->
-<div class="wizard" id="step5">
+<div class="wizard" id="step4">
   <div class="wizard-card">
-    <h2>初中阶段发展目标</h2>
+    <h2>你对孩子的发展目标？</h2>
     <p class="step-hint">第5步 / 共5步</p>
-    <p class="desc">您对孩子初中阶段有什么样的发展期望？影响学校选择的侧重点。</p>
-    <div class="options-grid" id="step5Options"></div>
+    <p class="desc">目标决定终点考量。四校八大路线关注自招人数和理科实力，竞赛路线关注竞赛特色班，双语国际路线关注外语课程体系，全面发展关注办学理念和均衡教育。</p>
+    <div class="options-grid" id="goalGrid"></div>
     <div class="wizard-actions">
-      <button class="btn-prev" onclick="goStep(4)">← 上一步</button>
-      <button class="btn-next" onclick="generateResult()">🎯 生成规划方案</button>
+      <button class="btn-prev" onclick="prevStep(4)">← 上一步</button>
+      <button class="btn-next" id="step4Btn" onclick="nextStep(4)" disabled>生成方案 →</button>
     </div>
   </div>
 </div>
 
 <!-- Results -->
 <div class="results-wrap" id="resultsWrap">
-  <div class="result-summary" id="resultSummary"></div>
-  <div class="result-card" id="resultTimeline">
-    <h3>📅 关键时间轴</h3>
-    <div id="timelineContent"></div>
-  </div>
-  <div class="result-card" id="resultPrep">
-    <h3>📝 准备建议</h3>
-    <ul id="prepContent"></ul>
-  </div>
-  <div class="result-card" id="resultRisk">
-    <h3>⚠️ 风险提示</h3>
-    <ul id="riskContent"></ul>
-  </div>
-  <div class="result-card" id="resultTips">
-    <h3>💡 各区政策要点</h3>
-    <ul id="tipsContent"></ul>
-  </div>
+  <div id="resultContent"></div>
   <div style="text-align:center;margin-top:20px">
-    <button class="btn-next" onclick="restart()">🔄 重新规划</button>
+    <button class="btn-next" onclick="goStep(0)">修改信息</button>
+    <button class="btn-prev" style="margin-left:10px" onclick="resetAll()">重新规划</button>
   </div>
 </div>
 
+<footer style="text-align:center;padding:24px;color:var(--text-muted);font-size:11px;border-top:1px solid var(--border)">
+  上海小升初·深度规划系统 v1.0 | 数据基于2025-2026年招生季 | 仅供参考，以官方发布为准
+</footer>
+
 <script>
-// ============ DATA ============
-const ICON_MAP = {
-  'xh':'🏛️','yp':'🎓','pd':'🌆','ja':'🏙️','hp':'🏗️','hk':'🌉','cn':'🌳','pt':'🏢',
-  'mh':'🚄','bs':'⛰️','jd':'🏗️','sj':'🌲','qp':'🌊','fx':'🌾','js':'⛏️','cm':'🌿',
-  'yh':'🏠','yh_same':'🏘️','yh_diff':'📍','jfz_120':'📋','jfz_other':'📄',
-  'top':'🏆','good':'⭐','medium':'📚','improve':'📈',
-  'public':'🏫','private':'🎲','special':'🌟','through':'🔗','international':'🌍',
-  'elite':'🎯','balance':'⚖️','safe':'🛡️','talent':'🎨','intl':'🌏'
-};
-const LEVEL_TAG = { '顶级':'top','优质':'good','中等':'mid','发展':'dev' };
+// ============================== DATA ==============================
 
-function gi(id) { return ICON_MAP[id] || '📌'; }
+// 学校数据 — 16区73所学校完整数据
+var SCHOOL_DATA = {"districts":[{"id":"xh","name":"徐汇","level":"顶级","summary":"上海教育最强区，华育中学四校自招全市断层领先，公民办均衡且全部触发摇号，竞争最为惨烈","competitiveLevel":"高","schools":[{"name":"华育中学","type":"民办","level":"市重点","features":"上海初中'一哥'，2025年四校自招110人（上中75人），最高分733","recommendation":"上中嫡系，四校自招人数断层领先，适合冲击顶尖名校的牛娃"},{"name":"世外中学","type":"民办","level":"市重点","features":"外语特色突出，IB课程体系，四校自招16人，初中直升世外高中优势明显","recommendation":"英语见长，完中直升体系完整，适合走体制外或双语路线"},{"name":"西南模范","type":"民办","level":"区重点","features":"政府购买学位，学费大幅降低，中考成绩稳定","recommendation":"政府购买学位性价比极高，徐汇民办中的'洼地'选择"},{"name":"西南位育","type":"民办","level":"区重点","features":"完中体制初高中一体化，学费降至3万/年","recommendation":"完中直升优势，学费亲民，适合求稳的家庭"},{"name":"园南中学","type":"公办","level":"优质","features":"徐汇公办新贵，四校八大率23.7%","recommendation":"公办黑马，对口入学性价比最高的选择之一"},{"name":"徐汇中学","type":"公办","level":"区重点","features":"科技特色班全市知名，百年老校底蕴深厚","recommendation":"科技特色班实力强劲，徐汇公办保底优质选择"}]},{"id":"yp","name":"杨浦","level":"顶级","summary":"与徐汇并称教育双雄，兰生复旦与存志领衔，民办摇号命中率仅13.4%竞争极其激烈","competitiveLevel":"高","schools":[{"name":"兰生复旦","type":"民办","level":"市重点","features":"四校自招29人，均分685，700+占比36%，取消外区招生仅本区摇号","recommendation":"杨浦民办头牌，四校摇篮，适合目标四校的顶尖学生"},{"name":"存志学校","type":"民办","level":"市重点","features":"四校自招15人，均分670-680，理科优势明显","recommendation":"理科强校，四校自招优势显著，杨浦民办第二选择"},{"name":"复旦二附校","type":"公办","level":"市重点","features":"700+共55人，市重率45%+，复旦系资源加持","recommendation":"公办天花板，复旦系优质资源，对口入学最优公办选择"},{"name":"上音实验","type":"公办","level":"区重点","features":"艺术与学业双优，公办中实力突出","recommendation":"艺术特长与学业并重，适合有音乐天赋的学生"},{"name":"凯慧初级","type":"民办","level":"优质","features":"数学竞赛特色，政府购买学位","recommendation":"竞赛方向优选，政府购买学位性价比高"}]},{"id":"pd","name":"浦东","level":"优质","summary":"上海中考人数最多的区（占全市近1/4），张江集团转公后依然强势，优质学校密集但竞争激烈","competitiveLevel":"高","schools":[{"name":"张江集团","type":"公办","level":"市重点","features":"原民办转公办，2025年四校自招19人地段公办第一，新增科创特长生通道","recommendation":"转公不降实力，浦东公办头牌，地段生最大利好"},{"name":"华曜浦东","type":"民办","level":"市重点","features":"华二系民办，中考均分681.25，性价比高","recommendation":"华二系优质民办，浦东摇号性价比之选"},{"name":"建平西校","type":"公办","level":"市重点","features":"700+约100人，建平系航母学校，中考人数全市最多之一","recommendation":"建平系标杆，浦东公办航母，适合对口入学"},{"name":"进才北校","type":"公办","level":"市重点","features":"700+约100人，最高分726，进才系核心初中","recommendation":"进才系核心初中，与建平西校并称浦东公办双雄"},{"name":"交中初级","type":"民办","level":"区重点","features":"交附系民办，四校率18%","recommendation":"交附嫡系，优质民办摇号选择"},{"name":"华二前滩","type":"公办","level":"区重点","features":"华二系新校，市重率70%+，四校八大率40%","recommendation":"华二新贵，潜力巨大，对口入学最惊喜的选择"}]},{"id":"ja","name":"静安","level":"优质","summary":"公办强区，市北初级奥数全国知名，静教院附校快乐教育成绩不逊民办，升学压力相对较小","competitiveLevel":"中","schools":[{"name":"市北初级中学","type":"公办","level":"市重点","features":"奥数强校全国知名，2025年四校自招64人","recommendation":"奥数竞赛全国知名，理科天赋学生的顶级公办选择"},{"name":"静教院附校","type":"公办","level":"市重点","features":"700+超40人，市重率60%，快乐教育理念","recommendation":"快乐教育典范，成绩不逊民办，升学压力最小的优质选择"},{"name":"市西初级","type":"公办","level":"区重点","features":"市西中学嫡系，最高分727.5","recommendation":"老牌公办名校，市西中学直通车"},{"name":"扬波中学","type":"民办","level":"区重点","features":"静安唯一持续触发摇号的民办，理科优势","recommendation":"静安民办首选，理科方向值得冲刺"},{"name":"上外静安外国语","type":"民办","level":"优质","features":"外语特色鲜明，小班化教学","recommendation":"语言特色鲜明，适合外语方向学生"}]},{"id":"hp","name":"黄浦","level":"优质","summary":"市重点名额比例全市最高达26.2%，近4个初中生中就有1个能上市重点，堪称中考'幸福区'","competitiveLevel":"中","schools":[{"name":"格致初级","type":"公办","level":"市重点","features":"格致中学嫡系，市重率53%，理科班实力突出","recommendation":"格致嫡系，市重点率超过一半，黄浦公办首选"},{"name":"民办立达","type":"民办","level":"区重点","features":"数学竞赛传统强校，连续多年触发摇号","recommendation":"数学竞赛见长，黄浦民办头牌"},{"name":"大同初级","type":"公办","level":"区重点","features":"大同中学嫡系初中，底蕴深厚","recommendation":"大同中学直通车，黄浦优质公办"},{"name":"卢湾初级","type":"公办","level":"区重点","features":"最高分728，老牌公办底蕴深厚","recommendation":"老牌公办，实力深厚，对口入学优质选择"},{"name":"民办永昌","type":"民办","level":"优质","features":"双语特色，九年一贯制","recommendation":"双语教学特色鲜明，一贯制直升优势"}]},{"id":"hk","name":"虹口","level":"优质","summary":"民办强公办弱格局明显，新华初级理科班全市闻名，建议应摇尽摇的策略区","competitiveLevel":"高","schools":[{"name":"新华初级","type":"民办","level":"市重点","features":"最高分726.5，理科班全市闻名，四校自招数据优异","recommendation":"虹口民办头牌，理科班实力全市前列"},{"name":"迅行中学","type":"民办","level":"区重点","features":"号称'中考王'，裸考实力突出，应试成绩稳定","recommendation":"裸考之王，应试实力强，最适合应试路线的学生"},{"name":"新复兴初级","type":"民办","level":"区重点","features":"每届100+学生进入复兴高级中学","recommendation":"复兴中学直通车，虹口优质民办"},{"name":"上外附中","type":"特殊","level":"优质","features":"全市招生七年一贯制，外语多语种教学，保送名额众多","recommendation":"神仙学校，特殊招生通道，语言天赋学生的殿堂"}]},{"id":"cn","name":"长宁","level":"优质","summary":"小体量教育资源区，延安初级四校自招20人实力突出，全部民办触发摇号热度高","competitiveLevel":"高","schools":[{"name":"延安初级","type":"公办","level":"市重点","features":"延安系核心初中，2025年四校自招20人","recommendation":"延安系核心公办，长宁教育标杆"},{"name":"包玉刚实验","type":"民办","level":"优质","features":"国际化教育标杆，全人教育理念，IB体系","recommendation":"国际化路线首选，体制外顶尖选择"},{"name":"娄山中学","type":"公办","level":"区重点","features":"最高分719，公办中坚力量","recommendation":"长宁公办中坚，对口入学稳妥选择"},{"name":"西延安中学","type":"公办","level":"区重点","features":"延安系成员校，办学质量稳定","recommendation":"延安系成员，公办优质保底选择"}]},{"id":"pt","name":"普陀","level":"中等","summary":"进华中学一枝独秀，培佳双语出过全市最高分，整体教育资源呈头部集中态势","competitiveLevel":"中","schools":[{"name":"进华中学","type":"民办","level":"市重点","features":"最高分724，连续6年触发摇号，四校自招表现突出","recommendation":"普陀民办头牌，连续摇号热度不减"},{"name":"培佳双语","type":"民办","level":"区重点","features":"双语教学特色，2025年中考全市最高分738分","recommendation":"双语特色突出，出过全市最高分，潜力巨大"},{"name":"梅陇中学","type":"公办","level":"区重点","features":"四校自招5人，科技班实力突出","recommendation":"公办科技班实力强劲，对口入学首选"},{"name":"曹二附中","type":"公办","level":"区重点","features":"曹杨二中嫡系初中","recommendation":"曹杨二中直通车，求稳的优质选择"}]},{"id":"mh","name":"闵行","level":"优质","summary":"公认'卷区'，上宝中学报名超4000人录取率低于7%，公民办教育资源丰富且竞争白热化","competitiveLevel":"高","schools":[{"name":"上宝中学","type":"民办","level":"市重点","features":"四校自招34人（上中22人），市重率66%，报名超4000人录取率低于7%","recommendation":"上中嫡系，闵行民办头牌，适合冲击顶尖名校的学生"},{"name":"文来中学","type":"民办","level":"市重点","features":"七宝中学嫡系初中，完中直升体系","recommendation":"七宝中学直通车，闵行优质民办"},{"name":"闵华二","type":"公办","level":"市重点","features":"最高分728，四校自招35人，华二系公办","recommendation":"华二系公办，四校自招人数惊人，闵行公办最佳选择"},{"name":"星河湾","type":"民办","level":"优质","features":"体制外国际化标杆，AP课程体系","recommendation":"体制外路线标杆，目标海外大学的优选"},{"name":"莘松中学","type":"公办","level":"优质","features":"闵行最大公办初中，办学规模大升学稳定","recommendation":"公办大校保底优质，对口入学稳妥之选"}]},{"id":"bs","name":"宝山","level":"发展","summary":"五大新城带动教育投入加大，华曜宝山快速崛起，宝山实验公办给力","competitiveLevel":"中","schools":[{"name":"华曜宝山","type":"民办","level":"区重点","features":"华二系宝山分校，四校录取21人，市重点录取150+人","recommendation":"华二系宝山分校，快速崛起中的优质民办"},{"name":"宝山实验","type":"公办","level":"区重点","features":"700+分34-35人，市重率47%，最高分730.5","recommendation":"宝山公办头牌，成绩稳定突出"},{"name":"行知二中","type":"公办","level":"区重点","features":"行知中学体系中坚，办学历史久","recommendation":"行知系优质公办，对口入学稳妥选择"}]},{"id":"jd","name":"嘉定","level":"发展","summary":"华曜嘉定一枝独秀，五大新城政策带动教育导入加快，复附嘉定布局中","competitiveLevel":"中","schools":[{"name":"华曜嘉定","type":"民办","level":"区重点","features":"最高分725，某班40人中19人700+，华二系","recommendation":"嘉定民办标杆，华二系教育质量有保障"},{"name":"桃李园实验","type":"民办","level":"优质","features":"最高分719.5，九年一贯制","recommendation":"嘉定优质民办，一贯制直升优势"},{"name":"同济附中","type":"公办","level":"区重点","features":"同济大学附属，700+分21人","recommendation":"同济大学加持，嘉定公办最优选择"}]},{"id":"sj","name":"松江","level":"发展","summary":"九峰实验市重率70%撑起门面，仅九峰需要摇号其余全录，上海摇号最宽松区之一","competitiveLevel":"低","schools":[{"name":"九峰实验","type":"民办","level":"区重点","features":"市重率70%，松江唯一需要摇号的民办","recommendation":"松江民办标杆，市重率七成实力稳定"},{"name":"民乐学校","type":"公办","level":"区重点","features":"700+分30人，九年一贯制","recommendation":"松江公办标杆，一贯制直升优势"},{"name":"上外松外","type":"公办","level":"区重点","features":"最高分726.5，上外系松江分校","recommendation":"上外系松江分校，成绩亮眼的公办选择"}]},{"id":"qp","name":"青浦","level":"发展","summary":"民办资源丰富（世外/兰生/五浦汇）力压公办，上中布局九年一贯制新校","competitiveLevel":"中","schools":[{"name":"复旦五浦汇","type":"民办","level":"区重点","features":"最高分721.5，700+分17人，复旦系","recommendation":"复旦系青浦分校，青浦民办头牌"},{"name":"青浦兰生","type":"民办","level":"区重点","features":"兰生复旦青浦分校，兰生系品牌","recommendation":"兰生系新校，品牌保证的优质选择"},{"name":"青浦世外","type":"民办","level":"优质","features":"世外系青浦分校，九年一贯制","recommendation":"世外品牌一贯制，体制外/双语路线优质选择"}]},{"id":"fx","name":"奉贤","level":"发展","summary":"郊区中坚，民办几乎无条件全录，公办奉贤实验领衔，处于教育爬坡期","competitiveLevel":"低","schools":[{"name":"奉贤实验中学","type":"公办","level":"区重点","features":"市重率32%，奉贤公办头牌","recommendation":"奉贤公办头牌，升学数据最稳"},{"name":"育秀实验","type":"公办","level":"区重点","features":"最高分719，九年一贯制","recommendation":"奉贤优质公办，一贯制直升优势"},{"name":"汇贤中学","type":"公办","level":"区重点","features":"最高分721，新晋优质公办","recommendation":"奉贤新晋优质公办，上升势头明显"}]},{"id":"js","name":"金山","level":"发展","summary":"蒙山中学最高分729，金盟中学优质民办，整体教育资源偏弱性价比尚可","competitiveLevel":"低","schools":[{"name":"蒙山中学","type":"公办","level":"区重点","features":"最高分729，金山公办头牌","recommendation":"金山公办头牌，表现稳定的优质选择"},{"name":"金盟中学","type":"民办","level":"优质","features":"金山唯一优质民办","recommendation":"金山民办首选，适合追求民办教育的家庭"},{"name":"罗星中学","type":"公办","level":"优质","features":"金山中坚公办，办学质量稳定","recommendation":"性价比较高，对口入学稳妥之选"}]},{"id":"cm","name":"崇明","level":"发展","summary":"上海教育资源最薄弱的区，上实东滩是唯一亮点，民办基本全录无竞争压力","competitiveLevel":"低","schools":[{"name":"上实东滩","type":"公办","level":"区重点","features":"上实系东滩分校，全市招生部分名额","recommendation":"上实品牌，崇明教育标杆"},{"name":"民一中学","type":"民办","level":"优质","features":"崇明唯一优质民办","recommendation":"崇明民办首选，基本无摇号压力"},{"name":"东门中学","type":"公办","level":"优质","features":"崇明公办中坚，办学规模较大","recommendation":"崇明公办中坚，对口入学稳妥选择"}]}]};
 
-const DATA = {
-  districts: [
-    { id:'xh',name:'徐汇区',level:'顶级',desc:'民办强校集中，教育资源最丰富' },
-    { id:'yp',name:'杨浦区',level:'顶级',desc:'高校附属学校多，教育质量稳定' },
-    { id:'pd',name:'浦东新区',level:'顶级',desc:'面积最大，学校多但差异大' },
-    { id:'ja',name:'静安区',level:'优质',desc:'原静安+闸北合并，整体均衡' },
-    { id:'hp',name:'黄浦区',level:'优质',desc:'市中心公办资源优质' },
-    { id:'hk',name:'虹口区',level:'优质',desc:'民办教育有特色，上外附中所在' },
-    { id:'cn',name:'长宁区',level:'优质',desc:'小升初实行划片电脑派位' },
-    { id:'pt',name:'普陀区',level:'优质',desc:'一贯制学校较多' },
-    { id:'mh',name:'闵行区',level:'中等',desc:'人口多竞争激烈，民办资源丰富' },
-    { id:'bs',name:'宝山区',level:'中等',desc:'人口导入区，教育资源快速增长' },
-    { id:'jd',name:'嘉定区',level:'中等',desc:'新城建设带动教育配套升级' },
-    { id:'sj',name:'松江区',level:'发展',desc:'人口增长快，优质资源相对稀缺' },
-    { id:'qp',name:'青浦区',level:'发展',desc:'国际学校资源丰富' },
-    { id:'fx',name:'奉贤区',level:'发展',desc:'教育资源持续投入中' },
-    { id:'js',name:'金山区',level:'发展',desc:'特色学校有发展亮点' },
-    { id:'cm',name:'崇明区',level:'发展',desc:'生态岛定位，教育资源有限' }
-  ],
-  residency: [
-    { id:'yh',title:'🏠 人户一致',desc:'户籍与房产同地址，对口第一排序' },
-    { id:'yh_same',title:'🏘️ 人户分离·同区',desc:'户籍和房产同在区内不同地址' },
-    { id:'yh_diff',title:'📍 人户分离·跨区',desc:'户籍和房产在不同区' },
-    { id:'jfz_120',title:'📋 居住证120分+',desc:'非沪籍，居住证积分达标' },
-    { id:'jfz_other',title:'📄 居住证不满120分/其他',desc:'非沪籍积分未达标或其他' }
-  ],
-  academic: [
-    { id:'top',title:'🏆 拔尖',desc:'年级前5%，有竞赛/特长获奖经历' },
-    { id:'good',title:'⭐ 优秀',desc:'年级前5%-20%，各科均衡' },
-    { id:'medium',title:'📚 良好',desc:'年级前20%-50%，态度端正' },
-    { id:'improve',title:'📈 待提升',desc:'年级后50%，有偏科或待改进项' }
-  ],
-  preference: [
-    { id:'public',title:'🏫 公办对口',desc:'按户籍/居住地对口入学，稳定可控' },
-    { id:'private',title:'🎲 民办摇号',desc:'参加民办初中统一摇号录取' },
-    { id:'special',title:'🌟 三公/特殊类',desc:'上外附中、上实、浦外等全市招生' },
-    { id:'through',title:'🔗 一贯制直升',desc:'所在小学有直升名额' },
-    { id:'international',title:'🌍 国际学校/出国',desc:'目标国际课程体系' }
-  ],
-  goal: [
-    { id:'elite',title:'🎯 名校冲刺',desc:'目标市/区重点或顶尖民办' },
-    { id:'balance',title:'⚖️ 均衡发展',desc:'学业+综合素质兼顾' },
-    { id:'safe',title:'🛡️ 稳妥保障',desc:'确保有学上，降低不确定性' },
-    { id:'talent',title:'🎨 特长发展',desc:'侧重科技/艺术/体育特长' },
-    { id:'intl',title:'🌏 国际教育',desc:'衔接国际课程要求' }
-  ]
+// 政策时间轴
+var POLICY_TIMELINE = {"timeline":[{"month":"9月（五年级上学期）","events":[{"event":"新学年开学，入学准备工作启动","detail":"各区教育局开始部署本学年毕业生信息管理工作，家长确认户籍地址、房产证地址、居住证状态等基础信息。"},{"event":"家长升学路径研究","detail":"家长开始系统性研究三类升学路径：公办对口入学、民办摇号、三公招生。"}]},{"month":"10月","events":[{"event":"部分学校教育展示活动","detail":"部分公办初中和民办学校开始举办教学展示、家长开放日等活动。"},{"event":"入学信息初步摸排","detail":"各区教育局通过小学对毕业生信息进行初步摸排。"}]},{"month":"11月","events":[{"event":"民办学校招生筹备","detail":"民办学校启动次年招生方案拟定工作。"},{"event":"人户分离办理窗口期","detail":"如有计划申请居住地入学，家长可提前到社区事务受理服务中心咨询并准备材料。"}]},{"month":"12月","events":[{"event":"证件材料最终确认","detail":"家长需最终确认户口簿、房产证、居住证、社保记录等证件材料是否完备。"}]},{"month":"1月","events":[{"event":"民办学校招生方案拟定","detail":"民办学校完成次年招生简章拟定。"},{"event":"三公学校招生筹备","detail":"上外附中、上实、浦外三所特殊公办学校开始筹备招生方案。"}]},{"month":"2月","events":[{"event":"三公招生方案定稿","detail":"三公学校完成招生简章终稿审定，家长须提前整理孩子简历。"},{"event":"居住证积分核查","detail":"非沪籍家庭重点核查居住证有效期、120积分、社保是否满足要求。"}]},{"month":"3月","events":[{"event":"市教委发布年度招生政策","detail":"上海市教委正式发布年度招生入学工作实施意见，明确当年招生基本原则和时间安排。"}]},{"month":"4月（全年最关键月份）","events":[{"event":"各区发布招生实施方案","detail":"上海16区教育局同步公布本区义务教育招生入学工作实施方案及细则。"},{"event":"三公招生简章发布","detail":"上外附中（240人）、上实（140人）、浦外（430人）同步发布招生简章。"},{"event":"入学报名系统开通","detail":"上海市义务教育入学报名系统正式开通。"},{"event":"三公网上报名","detail":"上外附中/浦外报名4月10-13日；上实报名4月10-15日。报名通道时间严格。"},{"event":"全市校园开放日","detail":"全市义务教育阶段学校统一开展校园开放日（线上线下结合）。"},{"event":"小升初信息核对","detail":"各小学组织五年级学生家长核对《上海市初中入学信息核对表》。"},{"event":"三公面单发放","detail":"三校公布初审结果，面单发放量为招生计划3-5倍。"},{"event":"三公统一面谈评估","detail":"三校同一天进行面谈评估，学生只能选择一所参加。"},{"event":"三公录取公示","detail":"三校公示录取名单。未录取者不影响后续公办对口或民办摇号。"},{"event":"报名信息核对截止","detail":"小升初信息核对、民办一贯制直升意愿确认、跨区就读申请截止。"},{"event":"人户分离办理截止","detail":"跨区或区内人户分离居住地登记入学申请截止。"}]},{"month":"5月（录取执行月）","events":[{"event":"民办一贯制直升录取","detail":"民办一贯制学校直升录取。"},{"event":"民办初中网上报名","detail":"家长登录报名系统填报1个民办第一志愿+1个调剂志愿。"},{"event":"民办初中电脑随机录取","detail":"报名人数超过招生计划的民办初中，统一进行电脑随机录取。"},{"event":"民办调剂志愿录取","detail":"第一志愿未摇中的学生进行调剂录取。"},{"event":"未被民办录取者回公办","detail":"按'对口生源优先、同类排序靠后'原则安排入学。"}]},{"month":"6月","events":[{"event":"公办初中入学验证","detail":"各区组织公办初中入学验证，核对户口簿、房产证、居住证等原件。"},{"event":"第二批统筹安排","detail":"对因各种原因未完成录取的学生进行第二批统筹安排。"}]},{"month":"7月","events":[{"event":"入学通知书发放","detail":"各初中开始向新生发放《入学通知书》，逐步启动新生报到注册工作。"}]},{"month":"8月","events":[{"event":"入学通知书全部发放完毕","detail":"8月15日前各区发放完毕全部入学通知书。"},{"event":"均衡分班完成","detail":"各初中完成均衡分班（严禁开设重点班、快慢班）。"},{"event":"开学准备","detail":"完成校服订购、体检、入学前教育、费用缴纳等全部准备工作。"}]}]};
+
+// 各区政策
+var DISTRICT_POLICIES = {"黄浦区":"全区公办实行学籍对口入学，五年一户全覆盖。市重名额比例全市最高达26.2%。","徐汇区":"小学对口+划块电脑派位相结合，五年一户全覆盖。须本区学籍三年以上（最严格）。","长宁区":"部分划片电脑派位+部分对口入学，全市电脑派位比例最高。五年一户全覆盖。","静安区":"相对就近小学对口+电脑派位。部分公办要求入户满3年。非沪籍基本无缘优质公办。","普陀区":"小学对口为主+部分电脑派位。2026年新增晋元南校、上师大附属普陀科技学校等。","虹口区":"对口统配为主+部分初中电脑随机录取。复兴中学和澄衷中学有单独摇号渠道。","杨浦区":"免试划块、相对就近、动态轮换、对口直升。五年一户全覆盖。班额控制最严格。","闵行区":"居住地段对口，九年一贯制公办直升。部分学校五年一户。人口导入大区学位紧张。","宝山区":"按户籍/居住地对口入学。五年一户全覆盖。","嘉定区":"对口入学为主。2026年须户籍迁入满三年。非沪籍120分排序较后。","浦东新区":"户籍/居住地段对口。部分学校五年一户。非沪籍120分+有房产可排至第3顺位。","金山区":"对口入学。政策相对宽松。","松江区":"户籍/居住地对口。2024年起排序改为户籍迁入年限。西部片区学位压力大。","青浦区":"对口入学。积分达标非沪籍排在有房但积分不达标之前。","奉贤区":"对口入学。远郊教育资源薄弱，入学竞争相对宽松。","崇明区":"对口入学。小班化教学试点（初中35人左右），学位相对宽松。"};
+
+// 决策因素权重
+var DECISION_FACTORS = {"factors":[{"factor":"升学竞争力与高中出口质量","weight":30,"explanation":"市重点/区重点高中录取率、四校八大预录取人数、中考均分等硬指标。"},{"factor":"入学确定性与政策风险对冲","weight":22,"explanation":"对口公办是否超额预警、民办摇号历史录取比例、调剂志愿空间。"},{"factor":"办学内涵与师资沉淀质量","weight":18,"explanation":"办学理念、师资稳定性、师生比、教学风格、课程体系丰富度。"},{"factor":"地理位置与通勤便利性","weight":12,"explanation":"学校离家距离、公共交通可达性、通勤对睡眠和课外时间的影响。"},{"factor":"孩子个性化匹配度与身心健康","weight":8,"explanation":"孩子性格特质与学校氛围的契合度。"},{"factor":"家庭教育经济成本与资源投入","weight":5,"explanation":"学费（含购买学位后差额）、课外辅导、接送时间成本。"},{"factor":"一贯制学制与长周期规划价值","weight":3,"explanation":"九年一贯制省去二次择校焦虑。新建校中一贯制占比高。"},{"factor":"家校圈层与社会资本网络","weight":2,"explanation":"家长群体的教育理念、职业背景、经济水平。"}]};
+
+// 行业误区和贴士
+var TIPS = ["提前三年启动规划，三年级起建立政策信息敏感度。","每年3-4月锁定目标学校开放日，带孩子实地感受校园氛围。","精确评估对口公办超额预警状态，算清摇不中能否回流的账。","建立多源信息交叉验证渠道，不被自媒体焦虑裹挟。","区分名校光环与适合孩子，优先评估办学内涵而非仅看升学率数字。","理性评估家庭资源约束与择校方案的匹配度。","关注新建名校分校的长线价值，不因短期不确定性错失机会。","重视一贯制学校的免焦虑红利，将长周期确定性纳入权重。","填写民办调剂志愿时采用分区策略，第一志愿+同校调剂为最佳组合。","将家庭教育投入置于学校选择之上，学校只占教育变量的30%。","使用加权打分表做决策辅助，将感性判断结构化。","保持平和心态，接受没有最优解只有最适合的决策现实。"];
+
+var MISTAKES = [{"mistake":"盲目追捧民办名校，忽视公办均衡化","advice":"做一张公办vs民办全维度对比表，用数据替代感觉做判断。","level":"high"},{"mistake":"以为摇不上民办还能回对口","advice":"对口公办若超额预警，摇号失败后按同类排序靠后原则被统筹。提前查超额预警公告。","level":"high"},{"mistake":"只看学校品牌不调研具体班级","advice":"向在读家长获取第一手信息，不只问学校怎么样，问师资配置和课后分层辅导。","level":"mid"},{"mistake":"被自媒体焦虑裹挟盲目跟风","advice":"以官方招生简章为准。如需付费获取机会，99%为骗局。","level":"mid"},{"mistake":"忽视通勤时间和孩子身心承受力","advice":"单程40分钟以上通勤年损失近300小时。选校前实测通勤路线。","level":"high"}];
+
+// ============================== SELECTION OPTIONS ==============================
+
+var HUKOU_OPTIONS = [
+  { id: 'hukou_yizhi', icon: '🏠', label: '人户一致', desc: '户籍与房产一致，公办最高优先级' },
+  { id: 'hukou_fenli', icon: '🏘', label: '人户分离', desc: '申请居住地入学，排序靠后' },
+  { id: 'hukou_jifen', icon: '📋', label: '居住证(积分达标)', desc: '120分+房产，部分区排位靠前' },
+  { id: 'hukou_nocredit', icon: '🪪', label: '居住证(无积分)', desc: '入学排序靠后，建议民办摇号' },
+  { id: 'hukou_suiban', icon: '🚌', label: '外来随迁子女', desc: '父母居住证+社保满6个月' }
+];
+
+var ACADEMIC_OPTIONS = [
+  { id: 'acad_top', icon: '🏆', label: 'A. 牛娃', desc: '区/市前5%，AMC8 20分+，小托福850+' },
+  { id: 'acad_good', icon: '⭐', label: 'B. 中上', desc: '班级/年级前15%，有校级以上获奖' },
+  { id: 'acad_mid', icon: '📚', label: 'C. 中等', desc: '各科均衡达标，学习习惯良好' },
+  { id: 'acad_basic', icon: '🌱', label: 'D. 待加强', desc: '基础较薄弱，需初中阶段追赶' }
+];
+
+var PREFERENCE_OPTIONS = [
+  { id: 'pref_minban', icon: '🎲', label: '民办冲刺', desc: '摇号民办名校，接受摇号风险' },
+  { id: 'pref_gongban', icon: '🏛', label: '公办保底', desc: '对口优质公办，不参与摇号' },
+  { id: 'pref_sangong', icon: '🌟', label: '三公冲刺', desc: '冲击上外附中/上实/浦外' },
+  { id: 'pref_yiguan', icon: '🔗', label: '一贯制优先', desc: '九年/十二年贯通，省去二次择校' },
+  { id: 'pref_undecided', icon: '❓', label: '未定', desc: '综合了解后再确定路径' }
+];
+
+var GOAL_OPTIONS = [
+  { id: 'goal_sixiao', icon: '🎯', label: '四校八大', desc: '以上中/华二/复附/交附为目标' },
+  { id: 'goal_jingsai', icon: '🧮', label: '竞赛路线', desc: '数学/信息学/科创竞赛方向' },
+  { id: 'goal_shuangyu', icon: '🌐', label: '双语国际', desc: 'IB/AP/A-Level国际课程体系' },
+  { id: 'goal_quanmian', icon: '🎨', label: '全面发展', desc: '学业与艺术/体育/科创并重' },
+  { id: 'goal_jianfu', icon: '🧘', label: '减负均衡', desc: '宽松成长环境，保护学习兴趣' }
+];
+
+var DISTRICT_ICONS = {
+  'xh':'🏙','yp':'🏗','pd':'🚀','ja':'🏛','hp':'👑','hk':'🌉',
+  'cn':'🌳','pt':'🏢','mh':'⚡','bs':'🔧','jd':'🚄','sj':'🌊',
+  'qp':'🌿','fx':'🌺','js':'⛰','cm':'🏝'
 };
 
-// ============ STATE ============
-const state = {};
-const STEP_KEYS = {1:'district',2:'residency',3:'academic',4:'preference',5:'goal'};
-const STEP_NAMES = ['所在区','户籍情况','学业水平','升学偏好','发展目标'];
-let currentStep = 1;
+var LEVEL_NAMES = { '顶级':'l0','优质':'l1','中等':'l2','发展':'l3' };
+var LEVEL_LABELS = { '顶级':'🔴 顶级','优质':'🟡 优质','中等':'🟢 中等','发展':'🔵 发展' };
 
-// ============ INIT ============
-function init() {
-  renderAll();
-  buildProgress();
-  showStep(1);
-}
+// ============================== STATE ==============================
 
-function renderAll() {
-  for (let s = 1; s <= 5; s++) {
-    const key = STEP_KEYS[s];
-    const data = {district:DATA.districts,residency:DATA.residency,academic:DATA.academic,preference:DATA.preference,goal:DATA.goal}[key];
-    renderGrid(key, data);
-  }
-}
+var state = {
+  district: null,
+  hukou: null,
+  academic: null,
+  preference: null,
+  goal: null,
+  currentStep: 0
+};
 
-function renderGrid(key, data) {
-  const container = document.getElementById(`step${Object.keys(STEP_KEYS).find(k=>STEP_KEYS[k]===key)}Options`);
-  // fix: this is too complex, let's just use the step number directly
-  const rect = document.querySelector(`#step${Object.keys(STEP_KEYS).find(k=>STEP_KEYS[k]===key)} .options-grid`);
-  if (!rect) return;
-  rect.innerHTML = data.map(item => {
-    const level = item.level ? `<span class="opt-tag ${LEVEL_TAG[item.level]||''}">${item.level}</span>` : '';
-    return `<div class="option-card" data-id="${item.id}" onclick="select('${key}','${item.id}',this)">
-      <span class="opt-icon">${gi(item.id)}</span>
-      <div class="opt-label">${item.name || item.title.replace(/^[^\s]+\s/,'')}</div>
-      <div class="opt-desc">${item.desc}</div>
-      ${level}
-    </div>`;
-  }).join('');
-}
-
-// override: simpler approach
-function renderGridSimple(step, key, data) {
-  const el = document.getElementById(`step${step}Options`);
-  if (!el) return;
-  el.innerHTML = data.map(item => {
-    const label = item.name || item.title.replace(/^[^\s]+\s/,'');
-    const level = item.level ? `<span class="opt-tag ${LEVEL_TAG[item.level]||''}">${item.level}</span>` : '';
-    return `<div class="option-card" data-id="${item.id}" onclick="select('${key}','${item.id}',this)">
-      <span class="opt-icon">${gi(item.id)}</span>
-      <div class="opt-label">${label}</div>
-      <div class="opt-desc">${item.desc}</div>
-      ${level}
-    </div>`;
-  }).join('');
-}
-
-// re-init all grids properly
-function initGrids() {
-  const grids = {
-    1:{key:'district',data:DATA.districts},
-    2:{key:'residency',data:DATA.residency},
-    3:{key:'academic',data:DATA.academic},
-    4:{key:'preference',data:DATA.preference},
-    5:{key:'goal',data:DATA.goal}
-  };
-  for (let s = 1; s <= 5; s++) {
-    const {key, data} = grids[s];
-    const el = document.getElementById(`step${s}Options`);
-    if (!el) continue;
-    el.innerHTML = data.map(item => {
-      const label = item.name || item.title.replace(/^[^\s]+\s/,'');
-      const level = item.level ? `<span class="opt-tag ${LEVEL_TAG[item.level]||''}">${item.level}</span>` : '';
-      return `<div class="option-card" data-id="${item.id}" onclick="select('${key}','${item.id}',this)">
-        <span class="opt-icon">${gi(item.id)}</span>
-        <div class="opt-label">${label}</div>
-        <div class="opt-desc">${item.desc}</div>
-        ${level}
-      </div>`;
-    }).join('');
-  }
-}
-
-function select(key, id, el) {
-  state[key] = id;
-  el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  const stepNum = Object.keys(STEP_KEYS).find(k => STEP_KEYS[k] === key);
-  document.getElementById(`step${stepNum}Next`).disabled = false;
-}
-
-function buildProgress() {
-  const container = document.getElementById('progressSteps');
-  container.innerHTML = STEP_NAMES.map((name, i) => {
-    const n = i + 1;
-    return `<div class="progress-step ${n === 1 ? 'active' : ''}" onclick="goStep(${n})">
-      <div class="progress-dot" id="pdot${n}">${n}</div>
-      <div class="progress-label">${name}</div>
-    </div>`;
-  }).join('');
-}
-
-function showStep(n) {
-  currentStep = n;
-  document.querySelectorAll('.wizard').forEach(el => el.classList.remove('active'));
-  const el = document.getElementById(`step${n}`);
-  if (el) el.classList.add('active');
-
-  for (let i = 1; i <= 5; i++) {
-    const dot = document.getElementById(`pdot${i}`);
-    const key = STEP_KEYS[i];
-    if (!dot) continue;
-    if (state[key]) {
-      dot.parentElement.className = 'progress-step done';
-      dot.className = 'progress-dot';
-      dot.textContent = '✓';
-    } else if (i === n) {
-      dot.parentElement.className = 'progress-step active';
-      dot.className = 'progress-dot';
-      dot.textContent = i;
-    } else {
-      dot.parentElement.className = 'progress-step';
-      dot.className = 'progress-dot';
-      dot.textContent = i;
-    }
-  }
-  window.scrollTo({ top: 200, behavior: 'smooth' });
-}
-
-function goStep(n) {
-  if (n > currentStep) {
-    const key = STEP_KEYS[currentStep];
-    if (!state[key]) {
-      showToast('请先完成当前步骤的选择');
-      return;
-    }
-  }
-  showStep(n);
-}
+// ============================== WIZARD ==============================
 
 function startWizard() {
-  document.querySelector('.hero').style.display = 'none';
-  document.getElementById('progressWrap').classList.add('active');
-  document.getElementById('resetBar').classList.add('active');
-  showStep(1);
+  document.querySelector('.start-btn').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('resetBar').style.display = 'block';
+  goStep(0);
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 2500);
-}
-
-// ============ RESULT ============
-function generateResult() {
-  const s = state;
-  if (!s.district || !s.residency || !s.academic || !s.preference || !s.goal) {
-    showToast('请完成所有步骤的选择');
-    return;
+function goStep(step) {
+  state.currentStep = step;
+  document.querySelectorAll('.wizard').forEach(function(el) { el.classList.remove('active'); });
+  if (step < 5) {
+    var el = document.getElementById('step' + step);
+    if (el) el.classList.add('active');
   }
-
-  document.querySelector('.hero').style.display = 'none';
-  document.getElementById('progressWrap').classList.remove('active');
-  document.getElementById('resetBar').classList.remove('active');
-  document.querySelectorAll('.wizard').forEach(el => el.classList.remove('active'));
-  document.getElementById('resultsWrap').classList.add('active');
-
-  const district = DATA.districts.find(d => d.id === s.district);
-  const residency = DATA.residency.find(r => r.id === s.residency);
-  const academic = DATA.academic.find(a => a.id === s.academic);
-  const pref = DATA.preference.find(p => p.id === s.preference);
-  const goal = DATA.goal.find(g => g.id === s.goal);
-
-  const lvMap = {'顶级':'🔴','优质':'🟡','中等':'🟢','发展':'🔵'};
-
-  document.getElementById('resultSummary').innerHTML = `
-    <h2>📊 你的选择概览</h2>
-    <div class="selected-tags">
-      所在区：${district.name} ${lvMap[district.level]||''}${district.level} &nbsp;·&nbsp;
-      户籍：${residency.title.replace(/^[^\s]+\s/,'')} &nbsp;·&nbsp;
-      学业：${academic.title.replace(/^[^\s]+\s/,'')} &nbsp;·&nbsp;
-      偏好：${pref.title.replace(/^[^\s]+\s/,'')} &nbsp;·&nbsp;
-      目标：${goal.title.replace(/^[^\s]+\s/,'')}
-    </div>
-    <div class="path-title">${getPathTitle(s)}</div>
-    <div class="path-brief">${getPathBrief(s)}</div>
-  `;
-
-  const tl = document.getElementById('timelineContent');
-  tl.innerHTML = getTimeline(s).map(t => `
-    <div class="timeline-item">
-      <div class="tl-time">${t.time}</div>
-      <div class="tl-event">${t.event}</div>
-      ${t.detail ? `<div class="tl-detail">${t.detail}</div>` : ''}
-    </div>
-  `).join('');
-
-  document.getElementById('prepContent').innerHTML = getPrep(s).map(p => `<li>${p}</li>`).join('');
-  document.getElementById('riskContent').innerHTML = getRisk(s).map(r => `<li>${r}</li>`).join('');
-  document.getElementById('tipsContent').innerHTML = getTips(s).map(t => `<li>${t}</li>`).join('');
-  launchConfetti();
-}
-
-function getPathTitle(s) {
-  const district = DATA.districts.find(d => d.id === s.district);
-  if (s.preference === 'special') return '🌟 三公/特殊类学校冲刺方案';
-  if (s.preference === 'private') return '🎲 民办摇号+公办保底双线方案';
-  if (s.preference === 'through') return '🔗 一贯制直升优先方案';
-  if (s.preference === 'international') return '🌍 国际教育路线规划方案';
-  if (s.goal === 'elite') return `🎯 ${district.name}重点初中冲刺方案`;
-  if (s.goal === 'safe') return '🛡️ 保障入学+公办保底方案';
-  if (s.goal === 'talent') return '🎨 特长定向发展方案';
-  return '⚖️ 均衡发展公办入学方案';
-}
-
-function getPathBrief(s) {
-  const district = DATA.districts.find(d => d.id === s.district);
-  const residency = DATA.residency.find(r => r.id === s.residency);
-  const academic = DATA.academic.find(a => a.id === s.academic);
-  const pref = DATA.preference.find(p => p.id === s.preference);
-  const goal = DATA.goal.find(g => g.id === s.goal);
-  const levelOrder = { '顶级':4,'优质':3,'中等':2,'发展':1 };
-  const briefs = [];
-  if (s.residency === 'yh') {
-    if (levelOrder[district.level] >= 3) {
-      briefs.push(`✅ ${district.name}教育资源丰富，「人户一致」对口排序优先级最高，公办保底条件优越。`);
-    } else {
-      briefs.push(`✅ 「人户一致」对口排序最优，但${district.name}优质公办资源相对有限，建议积极考虑跨区或民办选项。`);
-    }
-  } else if (s.residency === 'yh_same') {
-    briefs.push(`⚠️ 同区人户分离，对口排序低于人户一致，需确认具体对口中学校区是否有余额。`);
-  } else if (s.residency === 'yh_diff') {
-    briefs.push(`⚠️ 跨区人户分离，需在户籍地和房产地之间二选一作为入学依据，建议优先选择教育质量更高的区。`);
-  } else if (s.residency === 'jfz_120') {
-    briefs.push(`📋 非沪籍120分积分达标，可参加公办统筹和民办摇号，但排序在沪籍之后。建议民办摇号+统筹双线准备。`);
-  } else {
-    briefs.push(`📄 非沪籍积分未达标，入学选择受限。建议尽早积分达标或考虑国际学校/民办学校路径。`);
-  }
-  if (s.preference === 'private') {
-    if (levelOrder[district.level] >= 3) {
-      briefs.push(`🏫 所在区民办资源丰富，摇号中签率约10%-30%，建议选择2-3所目标校阶梯填报。`);
-    } else {
-      briefs.push(`🏫 所在区民办选择有限，可关注全市招生民办学校（如华育、兰生等可住宿校），但竞争更激烈。`);
-    }
-  }
-  if (s.goal === 'elite' && s.academic !== 'top' && s.academic !== 'good') {
-    briefs.push(`⚠️ 目标设为名校冲刺，但当前学业水平为「${academic.title.replace(/^[^\s]+\s/,'')}」，建议务实评估差距，制定学业提升计划。`);
-  }
-  if (s.preference === 'special') {
-    briefs.push(`🌟 三公学校（上外附中、上实、浦外）全市招生，报名人数多录取率极低（约5%），需提前1-2年准备。建议三公+公办对口双保险。`);
-  }
-  return briefs.join('<br><br>');
-}
-
-function getTimeline(s) {
-  const items = [
-    {time:'五年级·上（9-12月）',event:'政策学习与定位',detail:'了解所在区最新小升初政策，明确目标校范围，评估孩子定位'},
-    {time:'五年级·寒假（1-2月）',event:'材料准备与目标确认',detail:'整理户籍/房产/获奖证书等材料，确认最终升学路径'}
-  ];
-  if (s.preference === 'private' || s.preference === 'special') {
-    items.push({time:'五年级·3月',event:'民办/三公招生简章发布',detail:'关注目标校招生简章'});
-    items.push({time:'五年级·4月',event:'网上报名',detail:'上海市义务教育入学报名系统开放'});
-    items.push({time:'五年级·5月',event:'民办摇号/三公面谈',detail:'民办摇号、三公材料审核+面谈评估'});
-    items.push({time:'五年级·5月底',event:'录取结果公布',detail:'未录取→进入公办对口或统筹'});
-  } else {
-    items.push({time:'五年级·3-4月',event:'公办对口信息核对',detail:'各区发布公办初中对口方案'});
-    items.push({time:'五年级·5月',event:'公办对口确认',detail:'按方案确认入学学校'});
-  }
-  items.push({time:'五年级·6-7月',event:'录取通知书与分班',detail:'分班考/摸底测试'});
-  items.push({time:'五年级·暑假',event:'小初衔接准备',detail:'初中学习习惯调整、暑期预习'});
-  if (s.goal === 'talent') items.push({time:'持续进行',event:'特长训练不间断',detail:'每周保持训练，关注初中特长招生通道'});
-  return items;
-}
-
-function getPrep(s) {
-  const list = [];
-  if (s.residency === 'yh') list.push('确认户口本、房产证信息一致，如有变更提前办理');
-  else if (s.residency === 'yh_same' || s.residency === 'yh_diff') list.push('提前决定以户籍还是房产作为入学依据，咨询所在区教育局确认具体要求');
-  else if (s.residency === 'jfz_120') list.push('确认居住证120分积分有效且在有效期内，提前准备积分通知单');
-  else list.push('尽快办理居住证120分积分，或了解民办学校/国际学校等其他入学途径');
-
-  if (s.preference === 'private') {
-    list.push('研究目标民办学校往年招生人数、报名人数、中签率，制定梯度填报策略');
-    list.push('了解民办学校学费标准，评估家庭经济承受能力');
-  }
-  if (s.preference === 'special') {
-    list.push('提前1-2年了解三公学校招生要求，针对性准备面谈/评估内容');
-    list.push('三公学校对英语、数学、综合素质要求较高，建议提前强化训练');
-  }
-  if (s.goal === 'elite') list.push('关注目标学校的分班考安排，暑假提前准备分班考试内容');
-  if (s.goal === 'talent') {
-    list.push('整理特长获奖证书/考级证书/作品集，部分学校有特长招生通道');
-    list.push('关注上海市青少年科技创新大赛、艺术单项比赛等官方赛事');
-  }
-  if (s.goal === 'intl' || s.preference === 'international') {
-    list.push('确认目标国际学校的招生要求和考试安排（每年10月-次年3月）');
-    list.push('国际学校对英语能力要求较高，建议提前强化英语听说读写');
-  }
-  list.push('关注「上海市教委」和所在区教育局官网，及时获取最新政策动态');
-  list.push('加入所在区家长交流群，获取一手信息和经验分享');
-  return list;
-}
-
-function getRisk(s) {
-  const list = [];
-  if (s.preference === 'private') {
-    list.push('⚠️ 民办摇号存在不确定性，中签率一般在10%-30%，必须准备公办保底方案');
-    if (s.residency !== 'yh') list.push('⚠️ 非人户一致情况下，民办未录取后回公办可能面临统筹风险');
-  }
-  if (s.preference === 'special') list.push('⚠️ 三公学校录取率极低（约5%），千万不要孤注一掷，必须准备第二方案');
-  if (s.goal === 'elite' && s.academic !== 'top') list.push('⚠️ 名校冲刺目标与现实学业水平存在差距，建议制定梯度目标，避免过度焦虑');
-  if (s.residency === 'jfz_other') list.push('⚠️ 入学选择范围较小，建议尽早办理居住证积分或寻求其他入学途径');
-  if (s.preference === 'international') {
-    list.push('⚠️ 国际学校学费较高（一般15-30万/年），请确认家庭长期经济承受能力');
-    list.push('⚠️ 选择国际路线后，中考/高考路径的兼容性会降低，需明确长期规划');
-  }
-  if (list.length === 0) list.push('✅ 你的选择组合风险较低，按部就班准备即可');
-  return list;
-}
-
-function getTips(s) {
-  const tips = [];
-  const dt = {
-    'xh':'徐汇区：民办强区（华育、世外等），公办同样优质。人户一致排序严格，学区房需提前确认',
-    'yp':'杨浦区：高校附属学校密集（复旦附中、交大附中等），民办和公办均强。对口方案每年微调',
-    'pd':'浦东新区：面积大、学校差异大。张江集团、建平系竞争激烈，注意对口地段划分',
-    'ja':'静安区：原静安闸北合并后教育均衡度提升。公办整体质量较高，民办选择相对较少',
-    'hp':'黄浦区：公办资源优质密集，对口方案相对稳定。民办有永昌、立达等',
-    'hk':'虹口区：民办教育有特色，上外附中在本区。注意三公报名不受区限制',
-    'cn':'长宁区：实行划片电脑派位，需准确了解所在片区派位方案',
-    'pt':'普陀区：一贯制学校较多（晋元附校、曹二附校等），选择一贯制可省去升学焦虑',
-    'mh':'闵行区：人口大区竞争激烈。民办资源丰富（上宝、文来等），公办同样竞争激烈',
-    'bs':'宝山区：教育资源快速提升，行知二中、宝山实验有一定口碑',
-    'jd':'嘉定区：新城建设带动教育配套，交大附中嘉定分校等优质资源入驻',
-    'sj':'松江区：人口增长快但优质资源相对稀缺，建议关注全市招生优质民办',
-    'qp':'青浦区：国际学校资源丰富（世外青浦、平和青浦等），公办教育正在追赶',
-    'fx':'奉贤区：教育资源持续投入，奉贤实验中学有一定质量',
-    'js':'金山区：特色学校有亮点（金山世外等），整体与市区有差距',
-    'cm':'崇明区：优质初中选择有限，条件允许建议考虑市区入学'
-  };
-  if (dt[s.district]) tips.push(`📍 ${dt[s.district]}`);
-  tips.push('📌 每年3-4月各区发布当年义务教育招生政策，届时以最新政策为准');
-  tips.push('📌 上海市义务教育入学报名系统（shrxbm.shmec.gov.cn）是官方唯一报名通道');
-  return tips;
-}
-
-// ============ CONFETTI ============
-function launchConfetti() {
-  const c = document.createElement('div'); c.className = 'confetti-container';
-  document.body.appendChild(c);
-  const colors = ['#004098','#c8972b','#27ae60','#e74c3c','#9b59b6','#3498db'];
-  for (let i = 0; i < 50; i++) {
-    const p = document.createElement('div'); p.className = 'confetti-piece';
-    p.style.left = Math.random()*100+'%'; p.style.background = colors[i%colors.length];
-    p.style.animationDelay = Math.random()*2+'s';
-    p.style.width = (Math.random()*6+4)+'px'; p.style.height = (Math.random()*6+4)+'px';
-    c.appendChild(p);
-  }
-  setTimeout(() => c.remove(), 5000);
-}
-
-function restart() {
-  Object.keys(state).forEach(k => delete state[k]);
-  currentStep = 1;
   document.getElementById('resultsWrap').classList.remove('active');
-  document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
-  for (let i = 1; i <= 5; i++) {
-    document.getElementById(`step${i}Next`).disabled = true;
-  }
-  document.querySelector('.hero').style.display = '';
-  document.getElementById('progressWrap').classList.remove('active');
-  document.getElementById('resetBar').classList.remove('active');
+  updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ============ BOOT ============
-initGrids();
-buildProgress();
+function updateProgress() {
+  var dots = document.querySelectorAll('.progress-step');
+  dots.forEach(function(el, i) {
+    el.classList.remove('active', 'done');
+    if (i < state.currentStep) el.classList.add('done');
+    else if (i === state.currentStep) el.classList.add('active');
+  });
+}
+
+function nextStep(from) {
+  document.getElementById('resultsWrap').classList.remove('active');
+  if (from === 4) {
+    generateResults();
+    return;
+  }
+  goStep(from + 1);
+}
+
+function prevStep(from) {
+  goStep(from - 1);
+}
+
+// ============================== RENDER STEPS ==============================
+
+function renderDistricts() {
+  var grid = document.getElementById('districtGrid');
+  grid.innerHTML = SCHOOL_DATA.districts.map(function(d) {
+    return '<div class="option-card" data-id="' + d.id + '" onclick="selectDistrict(\'' + d.id + '\')">'
+      + '<span class="opt-icon">' + DISTRICT_ICONS[d.id] + '</span>'
+      + '<div class="opt-label">' + d.name + '</div>'
+      + '<span class="level-badge ' + LEVEL_NAMES[d.level] + '">' + LEVEL_LABELS[d.level] + '</span>'
+      + '<div class="opt-desc">' + d.competitiveLevel + '竞争 · ' + d.schools.length + '所学校</div>'
+      + '</div>';
+  }).join('');
+}
+
+function renderHukou() {
+  var grid = document.getElementById('hukouGrid');
+  grid.innerHTML = HUKOU_OPTIONS.map(function(h) {
+    return '<div class="option-card" data-id="' + h.id + '" onclick="selectHukou(\'' + h.id + '\')">'
+      + '<span class="opt-icon">' + h.icon + '</span>'
+      + '<div class="opt-label">' + h.label + '</div>'
+      + '<div class="opt-desc">' + h.desc + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function renderAcademic() {
+  var grid = document.getElementById('academicGrid');
+  grid.innerHTML = ACADEMIC_OPTIONS.map(function(a) {
+    return '<div class="option-card" data-id="' + a.id + '" onclick="selectAcademic(\'' + a.id + '\')">'
+      + '<span class="opt-icon">' + a.icon + '</span>'
+      + '<div class="opt-label">' + a.label + '</div>'
+      + '<div class="opt-desc">' + a.desc + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function renderPreference() {
+  var grid = document.getElementById('preferenceGrid');
+  grid.innerHTML = PREFERENCE_OPTIONS.map(function(p) {
+    return '<div class="option-card" data-id="' + p.id + '" onclick="selectPreference(\'' + p.id + '\')">'
+      + '<span class="opt-icon">' + p.icon + '</span>'
+      + '<div class="opt-label">' + p.label + '</div>'
+      + '<div class="opt-desc">' + p.desc + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function renderGoal() {
+  var grid = document.getElementById('goalGrid');
+  grid.innerHTML = GOAL_OPTIONS.map(function(g) {
+    return '<div class="option-card" data-id="' + g.id + '" onclick="selectGoal(\'' + g.id + '\')">'
+      + '<span class="opt-icon">' + g.icon + '</span>'
+      + '<div class="opt-label">' + g.label + '</div>'
+      + '<div class="opt-desc">' + g.desc + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// ============================== SELECTION HANDLERS ==============================
+
+function selectDistrict(id) {
+  state.district = id;
+  document.querySelectorAll('#districtGrid .option-card').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.id === id);
+  });
+  document.getElementById('step0Btn').disabled = false;
+}
+
+function selectHukou(id) {
+  state.hukou = id;
+  document.querySelectorAll('#hukouGrid .option-card').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.id === id);
+  });
+  document.getElementById('step1Btn').disabled = false;
+}
+
+function selectAcademic(id) {
+  state.academic = id;
+  document.querySelectorAll('#academicGrid .option-card').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.id === id);
+  });
+  document.getElementById('step2Btn').disabled = false;
+}
+
+function selectPreference(id) {
+  state.preference = id;
+  document.querySelectorAll('#preferenceGrid .option-card').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.id === id);
+  });
+  document.getElementById('step3Btn').disabled = false;
+}
+
+function selectGoal(id) {
+  state.goal = id;
+  document.querySelectorAll('#goalGrid .option-card').forEach(function(el) {
+    el.classList.toggle('selected', el.dataset.id === id);
+  });
+  document.getElementById('step4Btn').disabled = false;
+}
+
+// ============================== LABEL HELPERS ==============================
+
+function getHukouLabel(id) {
+  for (var i = 0; i < HUKOU_OPTIONS.length; i++) {
+    if (HUKOU_OPTIONS[i].id === id) return HUKOU_OPTIONS[i].label;
+  }
+  return id;
+}
+function getAcademicLabel(id) {
+  for (var i = 0; i < ACADEMIC_OPTIONS.length; i++) {
+    if (ACADEMIC_OPTIONS[i].id === id) return ACADEMIC_OPTIONS[i].label;
+  }
+  return id;
+}
+function getPreferenceLabel(id) {
+  for (var i = 0; i < PREFERENCE_OPTIONS.length; i++) {
+    if (PREFERENCE_OPTIONS[i].id === id) return PREFERENCE_OPTIONS[i].label;
+  }
+  return id;
+}
+function getGoalLabel(id) {
+  for (var i = 0; i < GOAL_OPTIONS.length; i++) {
+    if (GOAL_OPTIONS[i].id === id) return GOAL_OPTIONS[i].label;
+  }
+  return id;
+}
+function getDistrictName(id) {
+  for (var i = 0; i < SCHOOL_DATA.districts.length; i++) {
+    if (SCHOOL_DATA.districts[i].id === id) return SCHOOL_DATA.districts[i].name;
+  }
+  return id;
+}
+
+// ============================== RECOMMENDATION ENGINE ==============================
+
+function recommendSchools() {
+  var district = state.district;
+  var hukou = state.hukou;
+  var academic = state.academic;
+  var preference = state.preference;
+  var goal = state.goal;
+
+  // 找到所在区数据
+  var districtData = null;
+  for (var i = 0; i < SCHOOL_DATA.districts.length; i++) {
+    if (SCHOOL_DATA.districts[i].id === district) {
+      districtData = SCHOOL_DATA.districts[i];
+      break;
+    }
+  }
+  if (!districtData) return [];
+
+  // 收集候选学校：从本区开始
+  var candidates = [];
+  for (var j = 0; j < districtData.schools.length; j++) {
+    var s = districtData.schools[j];
+    candidates.push({
+      name: s.name,
+      type: s.type,
+      level: s.level,
+      features: s.features,
+      recommendation: s.recommendation,
+      _districtId: district,
+      _districtName: districtData.name
+    });
+  }
+
+  // 三公路径：始终推荐上外附中
+  if (preference === 'pref_sangong') {
+    for (var k = 0; k < SCHOOL_DATA.districts.length; k++) {
+      if (SCHOOL_DATA.districts[k].id === 'hk') {
+        var hkSchools = SCHOOL_DATA.districts[k].schools;
+        for (var l = 0; l < hkSchools.length; l++) {
+          if (hkSchools[l].name === '上外附中') {
+            var exists = false;
+            for (var m = 0; m < candidates.length; m++) {
+              if (candidates[m].name === '上外附中') { exists = true; break; }
+            }
+            if (!exists) {
+              candidates.push({
+                name: hkSchools[l].name,
+                type: hkSchools[l].type,
+                level: hkSchools[l].level,
+                features: hkSchools[l].features,
+                recommendation: hkSchools[l].recommendation,
+                _districtId: 'hk',
+                _districtName: '虹口'
+              });
+            }
+            break;
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  // 如果本区优质学校不足3所，从外区补充
+  var goodCount = 0;
+  for (var n = 0; n < candidates.length; n++) {
+    if (candidates[n].level === '市重点' || candidates[n].level === '区重点') goodCount++;
+  }
+  if (goodCount < 3) {
+    var extras = [];
+    for (var o = 0; o < SCHOOL_DATA.districts.length; o++) {
+      if (SCHOOL_DATA.districts[o].id === district) continue;
+      var distSchools = SCHOOL_DATA.districts[o].schools;
+      for (var p = 0; p < distSchools.length; p++) {
+        var ds = distSchools[p];
+        if (ds.level === '市重点') {
+          var exists = false;
+          for (var q = 0; q < candidates.length; q++) {
+            if (candidates[q].name === ds.name) { exists = true; break; }
+          }
+          if (!exists) {
+            extras.push({
+              name: ds.name,
+              type: ds.type,
+              level: ds.level,
+              features: ds.features,
+              recommendation: ds.recommendation,
+              _districtId: SCHOOL_DATA.districts[o].id,
+              _districtName: SCHOOL_DATA.districts[o].name
+            });
+          }
+        }
+      }
+    }
+    // 取前3补充
+    var take = Math.min(3, extras.length);
+    for (var r = 0; r < take; r++) {
+      candidates.push(extras[r]);
+    }
+  }
+
+  // 为每所学校评分
+  for (var s = 0; s < candidates.length; s++) {
+    var school = candidates[s];
+    var score = 0;
+    var matchReasons = [];
+    var detailInfo = [];
+
+    // 1. 区域匹配 (0-25)
+    if (school._districtId === district) {
+      score += 25;
+      matchReasons.push('本区学校');
+    } else if (preference === 'pref_sangong' && school.type === '特殊') {
+      score += 22;
+      matchReasons.push('三公特殊招生');
+    } else {
+      if (school.level === '市重点') score += 12;
+      else if (school.level === '区重点') score += 8;
+      else score += 5;
+      matchReasons.push('跨区学校');
+    }
+
+    // 2. 户籍匹配 (0-20)
+    if (hukou === 'hukou_yizhi') {
+      if (school.type === '公办') { score += 20; matchReasons.push('人户一致保公办'); }
+      else { score += 14; matchReasons.push('人户一致可安心摇号'); }
+    } else if (hukou === 'hukou_fenli') {
+      if (school.type === '民办') { score += 16; matchReasons.push('人户分离宜摇号'); detailInfo.push('人户分离公办排序靠后'); }
+      else { score += 6; }
+    } else if (hukou === 'hukou_jifen') {
+      if (school.type === '民办') { score += 16; matchReasons.push('积分达标宜摇号'); }
+      else { score += 10; detailInfo.push('120分公办排序尚可'); }
+    } else if (hukou === 'hukou_nocredit') {
+      if (school.type === '民办') { score += 14; matchReasons.push('民办摇号最佳突破'); }
+      else { score += 4; detailInfo.push('无积分公办统筹风险大'); }
+    } else if (hukou === 'hukou_suiban') {
+      if (school.type === '民办') { score += 12; matchReasons.push('民办摇号为最佳途径'); }
+      else { score += 4; detailInfo.push('随迁子女公办排序最靠后'); }
+    }
+
+    // 3. 学业匹配 (0-25)
+    if (academic === 'acad_top') {
+      if (school.level === '市重点') { score += 25; matchReasons.push('牛娃冲顶尖'); }
+      else if (school.level === '区重点') { score += 18; }
+      else { score += 10; }
+    } else if (academic === 'acad_good') {
+      if (school.level === '市重点' || school.level === '区重点') { score += 22; matchReasons.push('中上冲刺重点'); }
+      else { score += 14; }
+    } else if (academic === 'acad_mid') {
+      if (school.level === '区重点' || school.level === '优质') { score += 22; matchReasons.push('中等匹配优质公办'); }
+      else if (school.level === '市重点') { score += 14; }
+      else { score += 16; }
+    } else if (academic === 'acad_basic') {
+      if (school.level === '优质') { score += 22; matchReasons.push('适合追赶发展'); }
+      else if (school.level === '区重点') { score += 16; }
+      else { score += 10; }
+    }
+
+    // 4. 升学偏好匹配 (0-20)
+    if (preference === 'pref_minban') {
+      if (school.type === '民办') { score += 20; matchReasons.push('民办冲刺定位'); }
+      else { score += 10; }
+    } else if (preference === 'pref_gongban') {
+      if (school.type === '公办') { score += 20; matchReasons.push('对口入学最稳妥'); }
+      else { score += 8; }
+    } else if (preference === 'pref_sangong') {
+      if (school.type === '特殊') { score += 20; matchReasons.push('三公特殊通道'); }
+      else if (school.type === '公办') { score += 14; matchReasons.push('优质公办后备'); }
+      else { score += 10; }
+    } else if (preference === 'pref_yiguan') {
+      if (school.features.indexOf('一贯制') >= 0) { score += 20; matchReasons.push('一贯制免焦虑'); }
+      else if (school.features.indexOf('完中') >= 0) { score += 18; matchReasons.push('完中一体化'); }
+      else { score += 10; }
+    } else {
+      score += 15;
+    }
+
+    // 5. 发展目标匹配 (0-10)
+    if (goal === 'goal_sixiao') {
+      if (school.features.indexOf('四校') >= 0 || school.features.indexOf('自招') >= 0) { score += 10; matchReasons.push('四校目标匹配'); }
+      else if (school.level === '市重点') { score += 7; }
+      else { score += 4; }
+    } else if (goal === 'goal_jingsai') {
+      if (school.features.indexOf('竞赛') >= 0 || school.features.indexOf('奥数') >= 0 || school.features.indexOf('理科') >= 0) { score += 10; matchReasons.push('竞赛特色匹配'); }
+      else if (school.features.indexOf('科创') >= 0) { score += 8; }
+      else { score += 3; }
+    } else if (goal === 'goal_shuangyu') {
+      if (school.features.indexOf('外语') >= 0 || school.features.indexOf('双语') >= 0 || school.features.indexOf('IB') >= 0) { score += 10; matchReasons.push('双语国际匹配'); }
+      else { score += 2; }
+    } else if (goal === 'goal_quanmian') {
+      if (school.features.indexOf('科技') >= 0 || school.features.indexOf('艺术') >= 0) { score += 10; matchReasons.push('多元发展匹配'); }
+      else if (school.level === '区重点' || school.level === '优质') { score += 7; }
+      else { score += 4; }
+    } else if (goal === 'goal_jianfu') {
+      if (school.features.indexOf('快乐教育') >= 0 || school.features.indexOf('小班') >= 0) { score += 10; matchReasons.push('减负环境匹配'); }
+      else if (school.level === '优质') { score += 8; matchReasons.push('压力相对适中'); }
+      else { score += 3; }
+    }
+
+    school._score = score;
+    school._matchReasons = matchReasons;
+    school._detailInfo = detailInfo;
+    school._scorePct = Math.min(100, Math.round(score));
+  }
+
+  return candidates;
+}
+
+// ============================== GENERATE RESULTS ==============================
+
+function generateResults() {
+  // 显示结果区
+  document.querySelectorAll('.wizard').forEach(function(el) { el.classList.remove('active'); });
+  var rw = document.getElementById('resultsWrap');
+  rw.classList.add('active');
+  updateProgress();
+
+  // 彩蛋效果
+  fireConfetti();
+
+  // 推荐学校计算
+  var scored = recommendSchools();
+  scored.sort(function(a, b) { return b._score - a._score; });
+  var topSchools = scored.slice(0, 5);
+
+  // 基本信息
+  var districtName = getDistrictName(state.district);
+  var districtData = null;
+  for (var i = 0; i < SCHOOL_DATA.districts.length; i++) {
+    if (SCHOOL_DATA.districts[i].id === state.district) {
+      districtData = SCHOOL_DATA.districts[i];
+      break;
+    }
+  }
+
+  var goalLabel = getGoalLabel(state.goal);
+  var prefLabel = getPreferenceLabel(state.preference);
+  var acadLabel = getAcademicLabel(state.academic);
+  var pathName = districtName + ' · ' + prefLabel + ' → ' + goalLabel;
+
+  // 策略描述
+  var strategy = '';
+  if (state.preference === 'pref_minban') {
+    if (state.hukou === 'hukou_yizhi' && districtData && districtData.competitiveLevel === '高') {
+      strategy = '优质困境——人户一致可回对口，但对口公办若热度高则摇号失败后回不去。建议第一志愿填报心仪民办，调剂志愿选同校调剂。';
+    } else if (state.hukou !== 'hukou_yizhi') {
+      strategy = '户籍不占公办排序优势，民办摇号反而是最现实的优质路径。建议大胆填报心仪民办，同时关注调剂志愿的区内调剂选项。';
+    } else {
+      strategy = '有人户一致保底优势，可以在民办摇号中大胆尝试。建议第一志愿填报目标民办，调剂志愿选同校调剂或区内调剂。';
+    }
+  } else if (state.preference === 'pref_gongban') {
+    if (state.hukou === 'hukou_yizhi') {
+      strategy = '人户一致保公办是最稳妥的策略。建议提前确认对口公办是否超额预警，若无预警可安心入学。';
+    } else {
+      strategy = '户籍情况在公办排序中不占优势，建议理性评估热门公办的录取可能性，同时将民办摇号作为备选方案。';
+    }
+  } else if (state.preference === 'pref_sangong') {
+    strategy = '三公路线需提前1-2年规划：AMC8 20分+/小托福850+/区市荣誉是面单硬通货。报名阶段建议三校同时申请获取面单，但面谈当天只能选一校参加。';
+  } else if (state.preference === 'pref_yiguan') {
+    strategy = '一贯制路线省去二次择校焦虑。注意：一贯制直升需在4月确认直升意愿，一旦确认则退出后续招生流程。';
+  } else {
+    strategy = '建议先深入了解各类型学校的差异，重点关注本区优质公办的保底价值和民办摇号的策略空间。';
+  }
+
+  // 风险分析
+  var risks = [];
+  if (state.hukou === 'hukou_yizhi' && state.preference === 'pref_minban' && districtData && districtData.competitiveLevel === '高') {
+    risks.push({ title: '摇不中回不了对口的风险（高）', desc: '对口公办若超额预警，摇号失败后按同类排序靠后原则极大概率被统筹。建议提前上区教育局官网查询对口公办是否发布超额预警公告。', level: 'high' });
+  }
+  if ((state.hukou === 'hukou_nocredit' || state.hukou === 'hukou_suiban') && state.preference === 'pref_gongban') {
+    risks.push({ title: '非沪籍公办统筹风险（高）', desc: '无120积分情况下公办入学排序非常靠后，大概率被统筹到冷门学校。强烈建议考虑民办摇号作为主要突破方向。', level: 'high' });
+  }
+  if (state.academic === 'acad_basic' && state.preference === 'pref_minban') {
+    risks.push({ title: '学业水平与名校期望落差', desc: '当前水平距民办名校录取标准差距较大，建议务实评估，优先选择有分层教学的学校或在初中阶段有提升空间的优质公办。', level: 'mid' });
+  }
+  if (state.preference === 'pref_sangong' && state.academic !== 'acad_top' && state.academic !== 'acad_good') {
+    risks.push({ title: '三公面单竞争极激烈', desc: '三公面单发放量仅招生计划3-5倍（上外800-1200张），AMC8 20分+和小托福850+是基本门槛。学业水平需大幅提升才有机会。', level: 'high' });
+  }
+  var crossDist = [];
+  for (var t = 0; t < topSchools.length; t++) {
+    if (topSchools[t]._districtId !== state.district && topSchools[t].type !== '特殊') {
+      crossDist.push(topSchools[t].name);
+    }
+  }
+  if (crossDist.length > 0) {
+    risks.push({ title: '跨区通勤成本', desc: '推荐方案中有' + crossDist.length + '所跨区学校（' + crossDist.join('、') + '），建议在工作日实测通勤路线。单程超过40分钟的通勤成本可能超过名校品牌价值。', level: 'mid' });
+  }
+  if (risks.length === 0) {
+    risks.push({ title: '确认对口公办超额预警状态', desc: '建议在每年3-4月关注区教育局发布的公办初中对口入学排序和超额预警公告，这是所有决策的前提。', level: 'low' });
+    risks.push({ title: '不要被自媒体焦虑裹挟', desc: '以官方招生简章为准，对'内部渠道''暗考机会'等付费信息保持警惕，99%为骗局。', level: 'low' });
+  }
+
+  // 区政策详情
+  var dp = districtData ? (DISTRICT_POLICIES[districtData.name] || '暂无详细政策数据。建议查阅区教育局官网。') : '';
+
+  // 时间轴（截取关键月份）
+  var keyTimeline = POLICY_TIMELINE.timeline.slice(4, 10);
+
+  // 准备清单
+  var checklist = buildChecklist();
+
+  // 组装HTML
+  var bgColors = ['#004098','#2563eb','#7c3aed','#0891b2','#059669'];
+
+  var html = '<div class="result-summary">'
+    + '<h2>个人升学方案</h2>'
+    + '<p style="font-size:14px;margin-top:6px"><strong>' + pathName + '</strong></p>'
+    + '<p style="font-size:12px;margin-top:4px">所在区：' + districtName + ' | 户籍：' + getHukouLabel(state.hukou) + ' | 学业：' + acadLabel + ' | 路径：' + prefLabel + ' | 目标：' + goalLabel + '</p>'
+    + '<div style="margin-top:10px;padding:10px 14px;background:#fff;border-radius:8px;font-size:13px;border:1px solid var(--ustc);"><strong style="color:var(--ustc)">推荐策略：</strong>' + strategy + '</div>'
+    + '</div>';
+
+  // 推荐学校列表
+  html += '<div class="result-section"><h3>推荐学校</h3>';
+  for (var u = 0; u < topSchools.length; u++) {
+    var s = topSchools[u];
+    var typeClass = s.type === '公办' ? 'gongban' : (s.type === '民办' ? 'minban' : 'teshu');
+    var crossTag = (s._districtId !== state.district) ? '<span class="result-tag" style="background:#fff3e0;color:#e65100">跨区</span>' : '';
+    html += '<div class="result-card">'
+      + '<div class="rc-header">'
+      + '<span class="rc-name">' + (u + 1) + '. ' + s.name + '</span>'
+      + '<span class="result-tag ' + typeClass + '">' + s.type + '</span>'
+      + '<span class="result-tag" style="background:#fff3e0;color:#e65100">' + s.level + '</span>'
+      + crossTag
+      + '</div>'
+      + '<div class="rc-sub">' + s._districtName + ' · ' + s.features + '</div>'
+      + '<div class="rc-reason">' + s._matchReasons.join(' | ') + '</div>'
+      + '<div class="rc-score"><div style="display:flex;justify-content:space-between;font-size:11px"><span style="font-weight:600">匹配度</span><span style="color:' + bgColors[u] + '">' + s._scorePct + '分</span></div><div class="rc-score-bar"><div class="rc-score-fill" style="width:' + s._scorePct + '%;background:' + bgColors[u] + '"></div></div></div>';
+    if (s._detailInfo.length > 0) {
+      html += '<div class="rc-detail"><dt>注意</dt><dd>' + s._detailInfo[0] + '</dd></div>';
+    }
+    html += '<div class="rc-detail"><dt>推荐理由</dt><dd>' + s.recommendation + '</dd></div>'
+      + '</div>';
+  }
+  html += '</div>';
+
+  // 时间轴
+  html += '<div class="result-section"><h3>升学时间轴</h3><div class="timeline">';
+  for (var v = 0; v < keyTimeline.length; v++) {
+    var tl = keyTimeline[v];
+    var events = tl.events.slice(0, 4);
+    html += '<div class="tl-item"><div class="tl-month">' + tl.month + '</div>';
+    for (var w = 0; w < events.length; w++) {
+      html += '<div class="tl-event">' + events[w].event + '</div>'
+        + '<div class="tl-detail">' + events[w].detail.substring(0, 100) + (events[w].detail.length > 100 ? '...' : '') + '</div>';
+    }
+    if (tl.events.length > 4) {
+      html += '<div class="tl-detail" style="color:var(--ustc);font-weight:600">+' + (tl.events.length - 4) + '项重要事项</div>';
+    }
+    html += '</div>';
+  }
+  html += '</div></div>';
+
+  // 准备清单
+  html += '<div class="result-section"><h3>准备清单</h3>';
+  for (var x = 0; x < checklist.length; x++) {
+    var ci = checklist[x];
+    html += '<div class="checklist-item">'
+      + '<span class="cl-icon">' + ci.icon + '</span>'
+      + '<div class="cl-text"><span class="cl-month ' + (ci.urgent ? 'cl-urgent' : (ci.warn ? 'cl-warn' : 'cl-safe')) + '">' + ci.month + '</span>' + ci.text + '</div>'
+      + '</div>';
+  }
+  html += '</div>';
+
+  // 风险提示
+  html += '<div class="result-section"><h3>风险提示</h3>';
+  for (var y = 0; y < risks.length; y++) {
+    var r = risks[y];
+    html += '<div class="risk-card r-' + r.level + '">'
+      + '<div class="risk-title r-' + r.level + '">' + r.title + '</div>'
+      + '<div class="risk-body">' + r.desc + '</div>'
+      + '</div>';
+  }
+  html += '</div>';
+
+  // 区政策详情
+  html += '<div class="result-section"><h3>' + districtName + '区政策详情</h3>'
+    + '<div class="policy-box">' + dp + '</div></div>';
+
+  // 决策因素权重
+  html += '<div class="result-section"><h3>决策因素权重参考</h3>'
+    + '<div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">以下8个维度构成择校决策的完整框架。建议将候选学校逐项打分(1-10分)，按权重加权求和。学校只占教育变量的30%——家长永远是孩子最好的老师。</div>'
+    + '<table class="data-table"><tr><th>因素</th><th>权重</th><th>核心考量</th></tr>';
+  for (var z = 0; z < DECISION_FACTORS.factors.length; z++) {
+    var f = DECISION_FACTORS.factors[z];
+    html += '<tr><td style="font-weight:600">' + f.factor + '</td><td style="text-align:center">' + f.weight + '%</td><td style="font-size:10px">' + f.explanation + '</td></tr>';
+  }
+  html += '</table></div>';
+
+  // 贴士
+  html += '<div class="result-section"><h3>给家长的贴心建议</h3>';
+  for (var a = 0; a < TIPS.length; a++) {
+    html += '<div class="checklist-item"><span class="cl-icon" style="font-weight:700;color:var(--gold)">' + (a + 1) + '.</span><div class="cl-text">' + TIPS[a] + '</div></div>';
+  }
+  html += '</div>';
+
+  document.getElementById('resultContent').innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================== BUILD CHECKLIST ==============================
+
+function buildChecklist() {
+  var items = [];
+  var isNonHukou = state.hukou === 'hukou_jifen' || state.hukou === 'hukou_nocredit' || state.hukou === 'hukou_suiban';
+  var isSangong = state.preference === 'pref_sangong';
+  var isMinban = state.preference === 'pref_minban';
+
+  items.push({ icon: '📋', text: '确认户籍地址与房产证信息是否一致，确保人户一致排序', month: '现在', urgent: true });
+  if (isNonHukou) {
+    items.push({ icon: '🆔', text: '核查居住证有效期是否覆盖4-5月报名期，积分是否在有效期内', month: '尽快', urgent: true });
+    items.push({ icon: '💰', text: '确保社保累计满6个月（2025年7月至2026年6月期间），补缴无效', month: '尽快', urgent: true });
+  }
+  items.push({ icon: '🏫', text: '研究本区对口初中质量，确认是否发布超额预警公告', month: '9-10月', warn: true });
+  items.push({ icon: '🔍', text: '参加目标学校校园开放日，至少实地参观3-5所学校', month: '10-11月' });
+  if (isSangong) {
+    items.push({ icon: '🏆', text: '整理竞赛/语言/荣誉证书：AMC8、小托福、区/市三好等', month: '1-2月', urgent: true });
+    items.push({ icon: '📝', text: '准备三公网申材料（简历+证书扫描+自我陈述）', month: '2-3月', urgent: true });
+  }
+  items.push({ icon: '📢', text: '关注3月市教委发布的年度招生入学实施意见', month: '3月', warn: true });
+  items.push({ icon: '🗺', text: '查看本区招生实施方案和公办初中划片范围', month: '4月初', urgent: true });
+  if (isSangong) {
+    items.push({ icon: '🌐', text: '三公网上报名（4月10-15日），三校可同时申请', month: '4月中', urgent: true });
+  }
+  items.push({ icon: '✅', text: '小升初信息核对确认（4月13-24日），逾期不可更改', month: '4月', urgent: true });
+  if (isMinban) {
+    items.push({ icon: '📱', text: '民办初中网上报名（5月12-14日），1个第一志愿+1个调剂志愿', month: '5月', urgent: true });
+    items.push({ icon: '🎲', text: '查询民办摇号结果（5月20-21日），未中签关注调剂志愿（5月23日）', month: '5月', urgent: true });
+  }
+  items.push({ icon: '📨', text: '确认收到入学通知书（8月15日前全部发放完毕）', month: '7-8月' });
+  items.push({ icon: '🎒', text: '完成校服订购、体检、入学前教育、均衡分班等准备工作', month: '8月' });
+
+  return items;
+}
+
+// ============================== CONFETTI EFFECT ==============================
+
+function fireConfetti() {
+  var colors = ['#004098','#c8972b','#27ae60','#e74c3c','#f39c12','#3498db'];
+  for (var i = 0; i < 40; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + '%';
+        el.style.top = '60%';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.width = (4 + Math.random() * 6) + 'px';
+        el.style.height = (4 + Math.random() * 6) + 'px';
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        el.style.animationDuration = (1 + Math.random()) + 's';
+        el.style.animationDelay = (Math.random() * 0.5) + 's';
+        document.body.appendChild(el);
+        setTimeout(function() { el.remove(); }, 3000);
+      }, idx * 30);
+    })(i);
+  }
+}
+
+// ============================== RESET ==============================
+
+function resetAll() {
+  state = { district: null, hukou: null, academic: null, preference: null, goal: null, currentStep: 0 };
+  document.querySelectorAll('.option-card').forEach(function(el) { el.classList.remove('selected'); });
+  document.getElementById('step0Btn').disabled = true;
+  document.getElementById('step1Btn').disabled = true;
+  document.getElementById('step2Btn').disabled = true;
+  document.getElementById('step3Btn').disabled = true;
+  document.getElementById('step4Btn').disabled = true;
+  document.getElementById('resultsWrap').classList.remove('active');
+  goStep(0);
+}
+
+// ============================== INIT ==============================
+
+renderDistricts();
+renderHukou();
+renderAcademic();
+renderPreference();
+renderGoal();
 </script>
+
 </body>
 </html>
