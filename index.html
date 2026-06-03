@@ -365,6 +365,15 @@ body {
 
 <script>
 // ============ DATA ============
+const ICON_MAP = {
+  'xh':'🏛️','yp':'🎓','pd':'🌆','ja':'🏙️','hp':'🏗️','hk':'🌉','cn':'🌳','pt':'🏢',
+  'mh':'🚄','bs':'⛰️','jd':'🏗️','sj':'🌲','qp':'🌊','fx':'🌾','js':'⛏️','cm':'🌿',
+  'yh':'🏠','yh_same':'🏘️','yh_diff':'📍','jfz_120':'📋','jfz_other':'📄',
+  'top':'🏆','good':'⭐','medium':'📚','improve':'📈',
+  'public':'🏫','private':'🎲','special':'🌟','through':'🔗','international':'🌍',
+  'elite':'🎯','balance':'⚖️','safe':'🛡️','talent':'🎨','intl':'🌏'
+};
+function getIcon(id) { return ICON_MAP[id] || '📌'; }
 const DATA = {
   districts: [
     { id: 'xh', name: '徐汇区', level: '顶级', desc: '教育资源最丰富，民办强校集中' },
@@ -428,7 +437,7 @@ function renderOptions(data, containerId, stepKey, multi) {
     const icon = item.icon || '📌';
     return `<div class="option" data-id="${item.id}" onclick="selectOption('${stepKey}','${item.id}',${multi||false})">
       <div class="opt-check">✓</div>
-      <div class="opt-title">${item.id === 'yh' ? '🏠 ' : item.id === 'yh_same' ? '🏘️ ' : item.id === 'yh_diff' ? '📍 ' : item.id === 'jfz_120' ? '📋 ' : item.id === 'jfz_other' ? '📄 ' : item.id === 'top' ? '🏆 ' : item.id === 'good' ? '⭐ ' : item.id === 'medium' ? '📚 ' : item.id === 'improve' ? '📈 ' : item.id === 'public' ? '🏫 ' : item.id === 'private' ? '🎲 ' : item.id === 'special' ? '🌟 ' : item.id === 'through' ? '🔗 ' : item.id === 'international' ? '🌍 ' : item.id === 'elite' ? '🎯 ' : item.id === 'balance' ? '⚖️ ' : item.id === 'safe' ? '🛡️ ' : item.id === 'talent' ? '🎨 ' : item.id === 'intl' ? '🌏 ' : '📌 '}${item.title}</div>
+      <div class="opt-title">${getIcon(item.id)}${item.title || item.name}</div>
       <div class="opt-desc">${item.desc}</div>
       ${extra}
     </div>`;
