@@ -2,364 +2,298 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
 <title>上海小升初 · 5步规划</title>
 <style>
 :root {
-  --bg: #0a0e14; --bg2: #111620; --bg3: #1a1f2e;
-  --text: #e2e8f0; --text2: #8892a4; --text3: #5a6270;
-  --accent: #60a5fa; --accent2: #f0c040;
-  --green: #22c55e; --red: #e34a4a; --border: #1e2433;
-  --card: #151b28; --card-hover: #1c2335;
-  --step-done: #60a5fa; --step-active: #f0c040; --step-pending: #2a3142;
+  --primary: #004098; --primary-light: #e8edf6; --primary-dark: #0d2540;
+  --gold: #c8972b; --gold-light: #fdf6e3;
+  --bg: #f5f7fa; --card: #fff; --text: #1a1a1a; --text-muted: #666;
+  --border: #e5e5e5; --radius: 12px; --shadow: 0 2px 8px rgba(0,0,0,.06);
+  --green: #27ae60; --red: #e74c3c; --orange: #f39c12;
+  --blue: #3498db;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 body {
-  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', sans-serif;
-  background: var(--bg); color: var(--text); line-height: 1.6;
-  min-height: 100vh;
-}
-
-/* Nav */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(10,14,20,0.92); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; height: 48px; padding: 0 20px;
-}
-.nav .brand { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
-.nav .brand span { color: var(--accent); }
-.nav .badge {
-  margin-left: 8px; font-size: 10px; background: var(--accent2); color: #000;
-  padding: 1px 8px; border-radius: 10px; font-weight: 600;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.7;
 }
 
 /* Hero */
 .hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; padding: 80px 20px 40px;
-  text-align: center;
+  background: linear-gradient(135deg, var(--primary) 0%, #1a3a6e 40%, var(--primary-dark) 100%);
+  color: #fff; padding: 56px 24px 48px; text-align: center; position: relative; overflow: hidden;
 }
-.hero h1 {
-  font-size: clamp(28px, 5vw, 48px); font-weight: 800;
-  background: linear-gradient(135deg, #60a5fa 0%, #f0c040 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; margin-bottom: 16px;
-}
-.hero p { color: var(--text2); font-size: clamp(14px, 2vw, 18px); max-width: 520px; margin-bottom: 32px; }
-.hero .start-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 40px; border-radius: 12px; border: none;
-  background: linear-gradient(135deg, var(--accent), #3b82f6);
-  color: #fff; font-size: 16px; font-weight: 600; cursor: pointer;
-  transition: transform .2s, box-shadow .2s;
-}
-.hero .start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(96,165,250,0.3); }
-.hero .features {
-  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 40px;
-}
-.hero .features span {
-  font-size: 12px; padding: 6px 14px; border-radius: 20px;
-  background: var(--bg3); color: var(--text2); border: 1px solid var(--border);
-}
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,.06) 0%, transparent 60%); }
+.hero h1 { font-size: clamp(22px, 4vw, 34px); font-weight: 800; position: relative; letter-spacing: 1px; }
+.hero .subtitle { font-size: 15px; opacity: .85; margin-top: 8px; position: relative; }
+.hero .badge { display: inline-block; margin-top: 12px; padding: 4px 14px; border: 1px solid rgba(255,255,255,.25); border-radius: 20px; font-size: 11px; opacity: .7; position: relative; }
+.hero .start-btn { display: inline-block; margin-top: 20px; padding: 12px 40px; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; position: relative; transition: .2s; font-family: inherit; }
+.hero .start-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(200,151,43,.4); }
 
-/* Step Indicator */
-.steps-bar {
-  display: none; position: fixed; top: 48px; left: 0; right: 0; z-index: 99;
-  background: rgba(10,14,20,0.95); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border); padding: 12px 20px;
-}
-.steps-bar.active { display: flex; align-items: center; justify-content: center; gap: 4px; }
-.step-dot {
-  width: 28px; height: 28px; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
-  transition: all .3s; position: relative;
-}
-.step-dot.pending { background: var(--step-pending); color: var(--text3); }
-.step-dot.active { background: var(--step-active); color: #000; transform: scale(1.15); }
-.step-dot.done { background: var(--step-done); color: #fff; }
-.step-line { width: 28px; height: 2px; background: var(--step-pending); transition: background .3s; }
-.step-line.done { background: var(--step-done); }
-.step-label { font-size: 9px; color: var(--text3); text-align: center; margin-top: 4px; }
+/* Progress */
+.progress-wrap { max-width: 800px; margin: 0 auto; padding: 24px 16px 0; display: none; }
+.progress-wrap.active { display: block; }
+.progress-steps { display: flex; justify-content: space-between; position: relative; }
+.progress-steps::before { content: ''; position: absolute; top: 14px; left: 40px; right: 40px; height: 2px; background: var(--border); z-index: 1; }
+.progress-step { display: flex; flex-direction: column; align-items: center; gap: 6px; position: relative; z-index: 2; cursor: pointer; }
+.progress-dot { width: 30px; height: 30px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; transition: .3s; }
+.progress-step.active .progress-dot { background: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+.progress-step.done .progress-dot { background: var(--green); }
+.progress-label { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+.progress-step.active .progress-label { color: var(--primary); font-weight: 600; }
+.progress-step.done .progress-label { color: var(--green); }
 
-/* Wizard Container */
-.wizard { display: none; padding: 130px 20px 80px; max-width: 720px; margin: 0 auto; }
+/* Reset bar */
+.reset-bar { max-width: 800px; margin: 0 auto; padding: 0 16px; display: none; justify-content: flex-end; }
+.reset-bar.active { display: flex; }
+.reset-link { font-size: 12px; color: var(--text-muted); cursor: pointer; padding: 6px 12px; border-radius: 6px; }
+.reset-link:hover { color: var(--red); }
+
+/* Wizard */
+.wizard { display: none; max-width: 800px; margin: 0 auto; padding: 24px 16px 0; }
 .wizard.active { display: block; }
+.wizard-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 24px; border: 1px solid var(--border); }
+.wizard h2 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.wizard .step-hint { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+.wizard .desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
 
-/* Step Card */
-.step-card { display: none; animation: fadeIn .35s ease; }
-.step-card.active { display: block; }
-@keyframes fadeIn { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
+/* Options grid */
+.options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.option-card {
+  padding: 14px 12px; border: 2px solid var(--border); border-radius: 10px;
+  text-align: center; cursor: pointer; transition: .2s; background: #fff;
+}
+.option-card:hover { border-color: var(--primary-light); background: #f8f9fc; }
+.option-card.selected { border-color: var(--primary); background: var(--primary-light); }
+.option-card .opt-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+.option-card .opt-label { font-size: 13px; font-weight: 600; color: var(--text); }
+.option-card .opt-desc { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.option-card .opt-tag {
+  display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 8px;
+  font-size: 9px; font-weight: 600;
+}
+.opt-tag.top { background: #fde8e8; color: #c0392b; }
+.opt-tag.good { background: #fef3d5; color: #b8860b; }
+.opt-tag.mid { background: #d4edda; color: #155724; }
+.opt-tag.dev { background: #dbeafe; color: #1e40af; }
 
-.step-title {
-  font-size: 22px; font-weight: 700; margin-bottom: 6px;
-  display: flex; align-items: center; gap: 10px;
-}
-.step-number {
-  display: inline-flex; width: 32px; height: 32px; border-radius: 8px;
-  background: var(--accent); color: #fff; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 800;
-}
-.step-desc { color: var(--text2); font-size: 14px; margin-bottom: 24px; }
-
-/* Options Grid */
-.options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.options.col-1 { grid-template-columns: 1fr; }
-.options.col-3 { grid-template-columns: 1fr 1fr 1fr; }
-.option {
-  padding: 16px; border-radius: 12px; background: var(--card);
-  border: 2px solid var(--border); cursor: pointer;
-  transition: all .2s; text-align: left; position: relative;
-}
-.option:hover { background: var(--card-hover); border-color: var(--text3); }
-.option.selected {
-  border-color: var(--accent); background: rgba(96,165,250,0.1);
-  box-shadow: 0 0 20px rgba(96,165,250,0.1);
-}
-.option .opt-icon { font-size: 24px; margin-bottom: 6px; }
-.option .opt-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-.option .opt-desc { font-size: 12px; color: var(--text2); }
-.option .opt-check {
-  position: absolute; top: 10px; right: 10px; width: 18px; height: 18px;
-  border-radius: 50%; border: 2px solid var(--text3); display: flex;
-  align-items: center; justify-content: center; font-size: 10px; transition: all .2s;
-}
-.option.selected .opt-check { border-color: var(--accent); background: var(--accent); color: #fff; }
-
-/* Navigation Buttons */
-.btn-row {
-  display: flex; gap: 12px; margin-top: 28px; justify-content: space-between;
-}
-.btn-row .left { display: flex; gap: 12px; }
-.btn {
-  padding: 10px 24px; border-radius: 10px; border: 1px solid var(--border);
-  background: var(--bg3); color: var(--text); font-size: 14px; font-weight: 500;
-  cursor: pointer; transition: all .2s;
-}
-.btn:hover { background: var(--card-hover); }
-.btn.primary {
-  background: linear-gradient(135deg, var(--accent), #3b82f6);
-  border-color: transparent; color: #fff; font-weight: 600;
-}
-.btn.primary:hover { box-shadow: 0 4px 20px rgba(96,165,250,0.3); }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* Wizard actions */
+.wizard-actions { display: flex; gap: 10px; justify-content: space-between; margin-top: 20px; }
+.btn-prev { padding: 10px 20px; background: #fff; color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; }
+.btn-prev:hover { background: #f5f5f5; }
+.btn-next { padding: 10px 28px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: .2s; }
+.btn-next:hover { opacity: .9; }
+.btn-next:disabled { opacity: .4; cursor: not-allowed; }
 
 /* Results */
-.result {
-  display: none; padding: 130px 20px 80px; max-width: 800px; margin: 0 auto;
-}
-.result.active { display: block; animation: fadeIn .5s ease; }
-
-.result-header {
-  text-align: center; margin-bottom: 32px;
-}
-.result-header h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
-.result-header p { color: var(--text2); font-size: 14px; }
-
+.results-wrap { display: none; max-width: 800px; margin: 0 auto; padding: 24px 16px 80px; }
+.results-wrap.active { display: block; }
 .result-summary {
-  background: linear-gradient(135deg, rgba(96,165,250,0.1), rgba(240,192,64,0.08));
-  border: 1px solid rgba(96,165,250,0.2); border-radius: 16px; padding: 24px;
-  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--primary-light), #dce8f8);
+  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px;
+  border: 1px solid var(--primary);
 }
-.result-summary h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--accent2); }
-.result-summary .path { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.result-summary .brief { color: var(--text2); font-size: 13px; line-height: 1.8; }
+.result-summary h2 { font-size: 16px; color: var(--primary); margin-bottom: 8px; }
+.result-summary .selected-tags { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+.result-summary .path-title { font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
+.result-summary .path-brief { font-size: 13px; color: #444; line-height: 1.8; }
 
-.result-section {
-  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-  padding: 20px; margin-bottom: 16px;
+.result-card {
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 20px 22px; margin-bottom: 12px; border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
 }
-.result-section h3 {
-  font-size: 15px; font-weight: 700; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 8px;
+.result-card h3 { font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.result-card ul { list-style: none; }
+.result-card li {
+  font-size: 13px; color: #444; padding: 5px 0 5px 18px; position: relative; line-height: 1.6;
 }
-.result-section h3 .sec-icon { font-size: 18px; }
-.result-section ul { list-style: none; }
-.result-section li {
-  font-size: 13px; color: var(--text2); padding: 6px 0;
-  padding-left: 20px; position: relative; line-height: 1.7;
-}
-.result-section li::before {
-  content: ''; position: absolute; left: 0; top: 13px;
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-}
+.result-card li::before { content: '·'; position: absolute; left: 4px; color: var(--primary); font-weight: 700; }
 
-.timeline { position: relative; padding-left: 24px; }
-.timeline::before {
-  content: ''; position: absolute; left: 6px; top: 0; bottom: 0;
-  width: 2px; background: var(--border);
-}
 .timeline-item {
-  position: relative; padding: 8px 0 8px 16px; border-left: 2px solid var(--accent);
-  margin-bottom: 8px; padding-left: 16px;
+  padding: 10px 0; border-left: 2px solid var(--primary); padding-left: 16px; margin-left: 4px;
 }
-.timeline-item .time { font-size: 11px; color: var(--accent2); font-weight: 600; }
-.timeline-item .event { font-size: 13px; color: var(--text); }
-.timeline-item .detail { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.timeline-item:not(:last-child) { border-left: 2px solid var(--primary-light); }
+.timeline-item .tl-time { font-size: 11px; color: var(--gold); font-weight: 600; }
+.timeline-item .tl-event { font-size: 14px; font-weight: 600; color: var(--text); }
+.timeline-item .tl-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-.tag {
-  display: inline-block; padding: 2px 10px; border-radius: 12px;
-  font-size: 11px; font-weight: 600; margin: 2px;
-}
-.tag.green { background: rgba(34,197,94,0.15); color: var(--green); }
-.tag.red { background: rgba(227,74,74,0.15); color: var(--red); }
-.tag.blue { background: rgba(96,165,250,0.15); color: var(--accent); }
-.tag.yellow { background: rgba(240,192,64,0.15); color: var(--accent2); }
-
-.actions {
-  display: flex; gap: 12px; justify-content: center; margin-top: 32px;
-}
-.btn-outline {
-  padding: 10px 24px; border-radius: 10px; border: 1px solid var(--border);
-  background: transparent; color: var(--text2); font-size: 13px; cursor: pointer;
-  transition: all .2s;
-}
-.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-/* Responsive */
-@media (max-width: 600px) {
-  .options { grid-template-columns: 1fr; }
-  .options.col-3 { grid-template-columns: 1fr; }
-  .btn-row { flex-direction: column; }
-  .btn-row .left { width: 100%; }
-  .btn-row .left .btn { flex: 1; }
-  .actions { flex-direction: column; align-items: stretch; }
-}
+/* Toast */
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--red); color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 13px; z-index: 999; display: none; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
 
 /* Confetti */
 .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 200; }
-.confetti-piece {
-  position: absolute; width: 8px; height: 8px; border-radius: 2px;
-  animation: confetti-fall 3s ease-in forwards;
-}
+.confetti-piece { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: confetti-fall 3s ease-in forwards; }
 @keyframes confetti-fall {
   0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
   100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .hero { padding: 40px 16px 32px; }
+  .hero h1 { font-size: 20px; }
+  .hero .subtitle { font-size: 13px; }
+  .start-btn { padding: 10px 28px; font-size: 14px; }
+  .wizard-card { padding: 20px 16px; }
+  .wizard h2 { font-size: 16px; }
+  .result-summary { padding: 16px; }
+  .result-card { padding: 14px 16px; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 32px 12px 24px; }
+  .hero h1 { font-size: 18px; }
+  .hero .badge { font-size: 10px; }
+  .hero .start-btn { margin-top: 14px; }
+
+  .progress-wrap { padding: 16px 8px 0; }
+  .progress-steps::before { top: 10px; left: 12px; right: 12px; }
+  .progress-dot { width: 22px; height: 22px; font-size: 10px; }
+  .progress-label { font-size: 9px; text-align: center; }
+  .progress-step { gap: 3px; }
+
+  .wizard-card { padding: 16px 12px; border-radius: 8px; }
+  .wizard h2 { font-size: 15px; }
+  .wizard .desc { font-size: 12px; }
+
+  .options-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .option-card { padding: 10px 8px; }
+  .option-card .opt-icon { font-size: 18px; }
+  .option-card .opt-label { font-size: 12px; }
+  .option-card .opt-desc { font-size: 9px; }
+
+  .wizard-actions { flex-direction: column; gap: 8px; }
+  .wizard-actions .btn-prev,
+  .wizard-actions .btn-next { width: 100%; text-align: center; }
+
+  .result-summary { padding: 12px 14px; }
+  .result-summary h2 { font-size: 14px; }
+  .result-summary .path-title { font-size: 16px; }
+  .result-summary .path-brief { font-size: 12px; }
+  .result-card { padding: 12px 14px; }
+  .result-card h3 { font-size: 14px; }
+  .result-card li { font-size: 12px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav class="nav">
-  <div class="brand">上海<span>小升初</span></div>
-  <div class="badge">5步规划</div>
-</nav>
-
-<!-- Step Indicator -->
-<div class="steps-bar" id="stepsBar">
-  <div style="display:flex;flex-direction:column;align-items:center;gap:2px" id="stepIndicators"></div>
-  <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);margin-left:12px;white-space:nowrap" id="stepCounter">1/5</div>
-</div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <!-- Hero -->
-<section class="hero" id="hero">
-  <h1>上海小升初<br>5步找到最优路径</h1>
-  <p>输入孩子的基本情况，5步选择即可获得量身定制的升学规划方案。涵盖上海16区政策、公办对口、民办摇号、三公特殊类等全部路径。</p>
-  <button class="start-btn" onclick="startWizard()">
-    <span>开始规划</span>
-    <span>→</span>
-  </button>
-  <div class="features">
-    <span>🎯 16区覆盖</span>
-    <span>📋 5步完成</span>
-    <span>🔍 政策匹配</span>
-    <span>📊 个性化方案</span>
-  </div>
-</section>
+<header class="hero">
+  <h1>上海小升初 &middot; 5步规划</h1>
+  <p class="subtitle">输入孩子基本情况，5步选择获得定制升学方案</p>
+  <div class="badge">上海16区全覆盖 &middot; 公办/民办/三公/国际</div>
+  <button class="start-btn" onclick="startWizard()">开始规划我的小升初方案</button>
+</header>
 
-<!-- Wizard -->
-<div class="wizard" id="wizard">
+<!-- Progress Bar -->
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-steps" id="progressSteps"></div>
+</div>
 
-  <!-- Step 1 -->
-  <div class="step-card active" data-step="1">
-    <div class="step-title"><span class="step-number">1</span> 所在区</div>
-    <div class="step-desc">选择孩子户籍/居住证所在区，不同区的教育资源和对口政策差异很大</div>
-    <div class="options" id="step1Options"></div>
-    <div class="btn-row">
-      <div></div>
-      <button class="btn primary" id="step1Next" disabled onclick="goStep(2)">下一步 →</button>
-    </div>
-  </div>
+<!-- Reset -->
+<div class="reset-bar" id="resetBar">
+  <span class="reset-link" onclick="restart()">重新开始</span>
+</div>
 
-  <!-- Step 2 -->
-  <div class="step-card" data-step="2">
-    <div class="step-title"><span class="step-number">2</span> 户籍/居住情况</div>
-    <div class="step-desc">选择户籍和房产情况，这决定了你在对口入学中的优先级</div>
-    <div class="options" id="step2Options"></div>
-    <div class="btn-row">
-      <div class="left"><button class="btn" onclick="goStep(1)">← 上一步</button></div>
-      <button class="btn primary" id="step2Next" disabled onclick="goStep(3)">下一步 →</button>
-    </div>
-  </div>
-
-  <!-- Step 3 -->
-  <div class="step-card" data-step="3">
-    <div class="step-title"><span class="step-number">3</span> 学业水平</div>
-    <div class="step-desc">客观评估孩子的学业水平，这影响民办摇号和特殊类学校的策略选择</div>
-    <div class="options" id="step3Options"></div>
-    <div class="btn-row">
-      <div class="left"><button class="btn" onclick="goStep(2)">← 上一步</button></div>
-      <button class="btn primary" id="step3Next" disabled onclick="goStep(4)">下一步 →</button>
-    </div>
-  </div>
-
-  <!-- Step 4 -->
-  <div class="step-card" data-step="4">
-    <div class="step-title"><span class="step-number">4</span> 升学偏好</div>
-    <div class="step-desc">您更倾向于哪种升学路径？这是整个规划的核心方向</div>
-    <div class="options" id="step4Options"></div>
-    <div class="btn-row">
-      <div class="left"><button class="btn" onclick="goStep(3)">← 上一步</button></div>
-      <button class="btn primary" id="step4Next" disabled onclick="goStep(5)">下一步 →</button>
-    </div>
-  </div>
-
-  <!-- Step 5 -->
-  <div class="step-card" data-step="5">
-    <div class="step-title"><span class="step-number">5</span> 发展目标</div>
-    <div class="step-desc">您对孩子的初中阶段有什么样的发展期望？这会影响学校选择的侧重点</div>
-    <div class="options" id="step5Options"></div>
-    <div class="btn-row">
-      <div class="left"><button class="btn" onclick="goStep(4)">← 上一步</button></div>
-      <button class="btn primary" id="step5Next" disabled onclick="generateResult()">🎯 生成规划方案</button>
+<!-- Step 1: 所在区 -->
+<div class="wizard active" id="step1">
+  <div class="wizard-card">
+    <h2>孩子户籍/居住证在哪个区？</h2>
+    <p class="step-hint">第1步 / 共5步</p>
+    <p class="desc">上海16区教育资源差异较大，选择所在区。不同区的公办对口政策和民办资源各不相同。</p>
+    <div class="options-grid" id="step1Options"></div>
+    <div class="wizard-actions">
+      <span></span>
+      <button class="btn-next" id="step1Next" disabled onclick="goStep(2)">下一步 →</button>
     </div>
   </div>
 </div>
 
-<!-- Result -->
-<div class="result" id="result">
-  <div class="result-header">
-    <h2>🎉 你的小升初规划方案</h2>
-    <p>基于你的5步选择，以下为量身定制的升学规划</p>
+<!-- Step 2: 户籍/居住 -->
+<div class="wizard" id="step2">
+  <div class="wizard-card">
+    <h2>户籍和房产情况</h2>
+    <p class="step-hint">第2步 / 共5步</p>
+    <p class="desc">户籍和房产状态决定对口入学优先级，不同情况的入学路径差异很大。</p>
+    <div class="options-grid" id="step2Options"></div>
+    <div class="wizard-actions">
+      <button class="btn-prev" onclick="goStep(1)">← 上一步</button>
+      <button class="btn-next" id="step2Next" disabled onclick="goStep(3)">下一步 →</button>
+    </div>
   </div>
+</div>
 
+<!-- Step 3: 学业水平 -->
+<div class="wizard" id="step3">
+  <div class="wizard-card">
+    <h2>孩子目前的学业水平</h2>
+    <p class="step-hint">第3步 / 共5步</p>
+    <p class="desc">客观评估孩子学业水平。这影响民办摇号策略和三公/特殊类学校的选择。</p>
+    <div class="options-grid" id="step3Options"></div>
+    <div class="wizard-actions">
+      <button class="btn-prev" onclick="goStep(2)">← 上一步</button>
+      <button class="btn-next" id="step3Next" disabled onclick="goStep(4)">下一步 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 4: 升学偏好 -->
+<div class="wizard" id="step4">
+  <div class="wizard-card">
+    <h2>您倾向的升学路径</h2>
+    <p class="step-hint">第4步 / 共5步</p>
+    <p class="desc">不同的升学路径对应不同的准备策略和时间节点。</p>
+    <div class="options-grid" id="step4Options"></div>
+    <div class="wizard-actions">
+      <button class="btn-prev" onclick="goStep(3)">← 上一步</button>
+      <button class="btn-next" id="step4Next" disabled onclick="goStep(5)">下一步 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 5: 发展目标 -->
+<div class="wizard" id="step5">
+  <div class="wizard-card">
+    <h2>初中阶段发展目标</h2>
+    <p class="step-hint">第5步 / 共5步</p>
+    <p class="desc">您对孩子初中阶段有什么样的发展期望？影响学校选择的侧重点。</p>
+    <div class="options-grid" id="step5Options"></div>
+    <div class="wizard-actions">
+      <button class="btn-prev" onclick="goStep(4)">← 上一步</button>
+      <button class="btn-next" onclick="generateResult()">🎯 生成规划方案</button>
+    </div>
+  </div>
+</div>
+
+<!-- Results -->
+<div class="results-wrap" id="resultsWrap">
   <div class="result-summary" id="resultSummary"></div>
-
-  <div class="result-section" id="resultTimeline">
-    <h3><span class="sec-icon">📅</span> 关键时间轴</h3>
-    <div class="timeline" id="timelineContent"></div>
+  <div class="result-card" id="resultTimeline">
+    <h3>📅 关键时间轴</h3>
+    <div id="timelineContent"></div>
   </div>
-
-  <div class="result-section" id="resultPrep">
-    <h3><span class="sec-icon">📝</span> 准备建议</h3>
+  <div class="result-card" id="resultPrep">
+    <h3>📝 准备建议</h3>
     <ul id="prepContent"></ul>
   </div>
-
-  <div class="result-section" id="resultRisk">
-    <h3><span class="sec-icon">⚠️</span> 风险提示</h3>
+  <div class="result-card" id="resultRisk">
+    <h3>⚠️ 风险提示</h3>
     <ul id="riskContent"></ul>
   </div>
-
-  <div class="result-section" id="resultTips">
-    <h3><span class="sec-icon">💡</span> 各区政策要点</h3>
+  <div class="result-card" id="resultTips">
+    <h3>💡 各区政策要点</h3>
     <ul id="tipsContent"></ul>
   </div>
-
-  <div class="actions">
-    <button class="btn primary" onclick="restart()">🔄 重新规划</button>
-    <button class="btn-outline" onclick="window.print()">🖨️ 打印方案</button>
+  <div style="text-align:center;margin-top:20px">
+    <button class="btn-next" onclick="restart()">🔄 重新规划</button>
   </div>
 </div>
 
@@ -373,166 +307,221 @@ const ICON_MAP = {
   'public':'🏫','private':'🎲','special':'🌟','through':'🔗','international':'🌍',
   'elite':'🎯','balance':'⚖️','safe':'🛡️','talent':'🎨','intl':'🌏'
 };
-function getIcon(id) { return ICON_MAP[id] || '📌'; }
+const LEVEL_TAG = { '顶级':'top','优质':'good','中等':'mid','发展':'dev' };
+
+function gi(id) { return ICON_MAP[id] || '📌'; }
+
 const DATA = {
   districts: [
-    { id: 'xh', name: '徐汇区', level: '顶级', desc: '教育资源最丰富，民办强校集中' },
-    { id: 'yp', name: '杨浦区', level: '顶级', desc: '高校附属学校多，教育质量稳定' },
-    { id: 'pd', name: '浦东新区', level: '顶级', desc: '面积最大，学校数量多但差异大' },
-    { id: 'ja', name: '静安区', level: '优质', desc: '原静安+闸北合并，整体均衡' },
-    { id: 'hp', name: '黄浦区', level: '优质', desc: '市中心，公办资源优质' },
-    { id: 'hk', name: '虹口区', level: '优质', desc: '民办教育有特色' },
-    { id: 'cn', name: '长宁区', level: '优质', desc: '小升初实行划片电脑派位' },
-    { id: 'pt', name: '普陀区', level: '优质', desc: '一贯制学校较多' },
-    { id: 'mh', name: '闵行区', level: '中等', desc: '人口多，竞争激烈，民办资源丰富' },
-    { id: 'bs', name: '宝山区', level: '中等', desc: '人口导入区，教育资源快速增长' },
-    { id: 'jd', name: '嘉定区', level: '中等', desc: '新城建设带动教育配套升级' },
-    { id: 'sj', name: '松江区', level: '发展', desc: '人口增长快，优质资源相对稀缺' },
-    { id: 'qp', name: '青浦区', level: '发展', desc: '国际学校资源丰富，公办在追赶' },
-    { id: 'fx', name: '奉贤区', level: '发展', desc: '教育资源持续投入中' },
-    { id: 'js', name: '金山区', level: '发展', desc: '特色学校发展有亮点' },
-    { id: 'cm', name: '崇明区', level: '发展', desc: '生态岛定位，教育资源有限' }
+    { id:'xh',name:'徐汇区',level:'顶级',desc:'民办强校集中，教育资源最丰富' },
+    { id:'yp',name:'杨浦区',level:'顶级',desc:'高校附属学校多，教育质量稳定' },
+    { id:'pd',name:'浦东新区',level:'顶级',desc:'面积最大，学校多但差异大' },
+    { id:'ja',name:'静安区',level:'优质',desc:'原静安+闸北合并，整体均衡' },
+    { id:'hp',name:'黄浦区',level:'优质',desc:'市中心公办资源优质' },
+    { id:'hk',name:'虹口区',level:'优质',desc:'民办教育有特色，上外附中所在' },
+    { id:'cn',name:'长宁区',level:'优质',desc:'小升初实行划片电脑派位' },
+    { id:'pt',name:'普陀区',level:'优质',desc:'一贯制学校较多' },
+    { id:'mh',name:'闵行区',level:'中等',desc:'人口多竞争激烈，民办资源丰富' },
+    { id:'bs',name:'宝山区',level:'中等',desc:'人口导入区，教育资源快速增长' },
+    { id:'jd',name:'嘉定区',level:'中等',desc:'新城建设带动教育配套升级' },
+    { id:'sj',name:'松江区',level:'发展',desc:'人口增长快，优质资源相对稀缺' },
+    { id:'qp',name:'青浦区',level:'发展',desc:'国际学校资源丰富' },
+    { id:'fx',name:'奉贤区',level:'发展',desc:'教育资源持续投入中' },
+    { id:'js',name:'金山区',level:'发展',desc:'特色学校有发展亮点' },
+    { id:'cm',name:'崇明区',level:'发展',desc:'生态岛定位，教育资源有限' }
   ],
   residency: [
-    { id: 'yh', title: '人户一致', desc: '户籍与房产在同一地址，对口入学第一排序' },
-    { id: 'yh_same', title: '人户分离·同区', desc: '户籍和房产在同一区不同地址' },
-    { id: 'yh_diff', title: '人户分离·跨区', desc: '户籍和房产在不同区' },
-    { id: 'jfz_120', title: '居住证120分+', desc: '非沪籍，持有上海市居住证且积分达标' },
-    { id: 'jfz_other', title: '居住证不满120分/其他', desc: '非沪籍，居住证未达标或持有其他证件' }
+    { id:'yh',title:'🏠 人户一致',desc:'户籍与房产同地址，对口第一排序' },
+    { id:'yh_same',title:'🏘️ 人户分离·同区',desc:'户籍和房产同在区内不同地址' },
+    { id:'yh_diff',title:'📍 人户分离·跨区',desc:'户籍和房产在不同区' },
+    { id:'jfz_120',title:'📋 居住证120分+',desc:'非沪籍，居住证积分达标' },
+    { id:'jfz_other',title:'📄 居住证不满120分/其他',desc:'非沪籍积分未达标或其他' }
   ],
   academic: [
-    { id: 'top', title: '拔尖', desc: '年级前5%，有学科竞赛/科创/艺术特长获奖经历' },
-    { id: 'good', title: '优秀', desc: '年级前5%-20%，各科均衡发展' },
-    { id: 'medium', title: '良好', desc: '年级前20%-50%，学习态度端正' },
-    { id: 'improve', title: '待提升', desc: '年级后50%，有偏科或学习习惯待改进' }
+    { id:'top',title:'🏆 拔尖',desc:'年级前5%，有竞赛/特长获奖经历' },
+    { id:'good',title:'⭐ 优秀',desc:'年级前5%-20%，各科均衡' },
+    { id:'medium',title:'📚 良好',desc:'年级前20%-50%，态度端正' },
+    { id:'improve',title:'📈 待提升',desc:'年级后50%，有偏科或待改进项' }
   ],
   preference: [
-    { id: 'public', title: '公办对口', desc: '按户籍/居住地对口入学，稳定可控' },
-    { id: 'private', title: '民办摇号', desc: '参加民办初中统一摇号录取' },
-    { id: 'special', title: '三公/特殊类', desc: '上外附中、上实、浦外等全市招生特殊学校' },
-    { id: 'through', title: '一贯制直升', desc: '所在小学有直升名额，选择校内直升' },
-    { id: 'international', title: '国际学校/出国', desc: '目标国际课程体系或海外升学' }
+    { id:'public',title:'🏫 公办对口',desc:'按户籍/居住地对口入学，稳定可控' },
+    { id:'private',title:'🎲 民办摇号',desc:'参加民办初中统一摇号录取' },
+    { id:'special',title:'🌟 三公/特殊类',desc:'上外附中、上实、浦外等全市招生' },
+    { id:'through',title:'🔗 一贯制直升',desc:'所在小学有直升名额' },
+    { id:'international',title:'🌍 国际学校/出国',desc:'目标国际课程体系' }
   ],
   goal: [
-    { id: 'elite', title: '名校冲刺', desc: '目标市/区重点初中或顶尖民办' },
-    { id: 'balance', title: '均衡发展', desc: '学业+综合素质兼顾，不盲目追求名校' },
-    { id: 'safe', title: '稳妥保障', desc: '确保有学上，降低不确定性' },
-    { id: 'talent', title: '特长发展', desc: '侧重科技/艺术/体育特长的定向发展' },
-    { id: 'intl', title: '国际教育', desc: '衔接国际课程要求，注重英语和综合素质' }
+    { id:'elite',title:'🎯 名校冲刺',desc:'目标市/区重点或顶尖民办' },
+    { id:'balance',title:'⚖️ 均衡发展',desc:'学业+综合素质兼顾' },
+    { id:'safe',title:'🛡️ 稳妥保障',desc:'确保有学上，降低不确定性' },
+    { id:'talent',title:'🎨 特长发展',desc:'侧重科技/艺术/体育特长' },
+    { id:'intl',title:'🌏 国际教育',desc:'衔接国际课程要求' }
   ]
 };
 
 // ============ STATE ============
-const state = { step: 1, selections: {} };
+const state = {};
+const STEP_KEYS = {1:'district',2:'residency',3:'academic',4:'preference',5:'goal'};
+const STEP_NAMES = ['所在区','户籍情况','学业水平','升学偏好','发展目标'];
+let currentStep = 1;
 
-// ============ RENDER ============
-function renderOptions(data, containerId, stepKey, multi) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = data.map(item => {
-    let extra = '';
-    if (item.level) {
-      const lv = { '顶级': '🔴', '优质': '🟡', '中等': '🟢', '发展': '🔵' }[item.level] || '';
-      extra = `<span class="tag ${item.level === '顶级' ? 'red' : item.level === '优质' ? 'yellow' : item.level === '中等' ? 'blue' : ''}" style="margin-top:4px">${lv} ${item.level}</span>`;
-    }
-    const icon = item.icon || '📌';
-    return `<div class="option" data-id="${item.id}" onclick="selectOption('${stepKey}','${item.id}',${multi||false})">
-      <div class="opt-check">✓</div>
-      <div class="opt-title">${getIcon(item.id)}${item.title || item.name}</div>
-      <div class="opt-desc">${item.desc}</div>
-      ${extra}
-    </div>`;
-  }).join('');
+// ============ INIT ============
+function init() {
+  renderAll();
+  buildProgress();
+  showStep(1);
 }
 
-function initSteps() {
-  renderOptions(DATA.districts, 'step1Options', 'district');
-  renderOptions(DATA.residency, 'step2Options', 'residency');
-  renderOptions(DATA.academic, 'step3Options', 'academic');
-  renderOptions(DATA.preference, 'step4Options', 'preference');
-  renderOptions(DATA.goal, 'step5Options', 'goal');
-  buildStepIndicators();
-}
-
-function buildStepIndicators() {
-  const names = ['所在区', '户籍情况', '学业水平', '升学偏好', '发展目标'];
-  const container = document.getElementById('stepIndicators');
-  container.innerHTML = names.map((n, i) => {
-    const num = i + 1;
-    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-      <div class="step-dot ${num === 1 ? 'active' : 'pending'}" data-s="${num}" id="dot${num}">${num}</div>
-      <div class="step-label">${n}</div>
-    </div>`;
-  }).join('');
-  // add lines between
-  const wrapper = container;
-  const items = wrapper.querySelectorAll('div[style]');
-  for (let i = 0; i < items.length - 1; i++) {
-    const line = document.createElement('div');
-    line.className = 'step-line pending';
-    line.id = `line${i+1}`;
-    items[i].after(line);
+function renderAll() {
+  for (let s = 1; s <= 5; s++) {
+    const key = STEP_KEYS[s];
+    const data = {district:DATA.districts,residency:DATA.residency,academic:DATA.academic,preference:DATA.preference,goal:DATA.goal}[key];
+    renderGrid(key, data);
   }
 }
 
-// ============ INTERACTION ============
-function selectOption(key, id) {
-  state.selections[key] = id;
-  // deselect siblings
-  document.querySelectorAll(`#${key === 'district' ? 'step1Options' : key === 'residency' ? 'step2Options' : key === 'academic' ? 'step3Options' : key === 'preference' ? 'step4Options' : 'step5Options'} .option`).forEach(el => el.classList.remove('selected'));
-  // select clicked
-  const clicked = document.querySelector(`[data-id="${id}"]`);
-  if (clicked) clicked.classList.add('selected');
-  // enable next
-  const stepMap = { district: 1, residency: 2, academic: 3, preference: 4, goal: 5 };
-  const s = stepMap[key];
-  document.getElementById(`step${s}Next`).disabled = false;
+function renderGrid(key, data) {
+  const container = document.getElementById(`step${Object.keys(STEP_KEYS).find(k=>STEP_KEYS[k]===key)}Options`);
+  // fix: this is too complex, let's just use the step number directly
+  const rect = document.querySelector(`#step${Object.keys(STEP_KEYS).find(k=>STEP_KEYS[k]===key)} .options-grid`);
+  if (!rect) return;
+  rect.innerHTML = data.map(item => {
+    const level = item.level ? `<span class="opt-tag ${LEVEL_TAG[item.level]||''}">${item.level}</span>` : '';
+    return `<div class="option-card" data-id="${item.id}" onclick="select('${key}','${item.id}',this)">
+      <span class="opt-icon">${gi(item.id)}</span>
+      <div class="opt-label">${item.name || item.title.replace(/^[^\s]+\s/,'')}</div>
+      <div class="opt-desc">${item.desc}</div>
+      ${level}
+    </div>`;
+  }).join('');
 }
 
-function startWizard() {
-  document.getElementById('hero').style.display = 'none';
-  document.getElementById('wizard').classList.add('active');
-  document.getElementById('stepsBar').classList.add('active');
+// override: simpler approach
+function renderGridSimple(step, key, data) {
+  const el = document.getElementById(`step${step}Options`);
+  if (!el) return;
+  el.innerHTML = data.map(item => {
+    const label = item.name || item.title.replace(/^[^\s]+\s/,'');
+    const level = item.level ? `<span class="opt-tag ${LEVEL_TAG[item.level]||''}">${item.level}</span>` : '';
+    return `<div class="option-card" data-id="${item.id}" onclick="select('${key}','${item.id}',this)">
+      <span class="opt-icon">${gi(item.id)}</span>
+      <div class="opt-label">${label}</div>
+      <div class="opt-desc">${item.desc}</div>
+      ${level}
+    </div>`;
+  }).join('');
+}
+
+// re-init all grids properly
+function initGrids() {
+  const grids = {
+    1:{key:'district',data:DATA.districts},
+    2:{key:'residency',data:DATA.residency},
+    3:{key:'academic',data:DATA.academic},
+    4:{key:'preference',data:DATA.preference},
+    5:{key:'goal',data:DATA.goal}
+  };
+  for (let s = 1; s <= 5; s++) {
+    const {key, data} = grids[s];
+    const el = document.getElementById(`step${s}Options`);
+    if (!el) continue;
+    el.innerHTML = data.map(item => {
+      const label = item.name || item.title.replace(/^[^\s]+\s/,'');
+      const level = item.level ? `<span class="opt-tag ${LEVEL_TAG[item.level]||''}">${item.level}</span>` : '';
+      return `<div class="option-card" data-id="${item.id}" onclick="select('${key}','${item.id}',this)">
+        <span class="opt-icon">${gi(item.id)}</span>
+        <div class="opt-label">${label}</div>
+        <div class="opt-desc">${item.desc}</div>
+        ${level}
+      </div>`;
+    }).join('');
+  }
+}
+
+function select(key, id, el) {
+  state[key] = id;
+  el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const stepNum = Object.keys(STEP_KEYS).find(k => STEP_KEYS[k] === key);
+  document.getElementById(`step${stepNum}Next`).disabled = false;
+}
+
+function buildProgress() {
+  const container = document.getElementById('progressSteps');
+  container.innerHTML = STEP_NAMES.map((name, i) => {
+    const n = i + 1;
+    return `<div class="progress-step ${n === 1 ? 'active' : ''}" onclick="goStep(${n})">
+      <div class="progress-dot" id="pdot${n}">${n}</div>
+      <div class="progress-label">${name}</div>
+    </div>`;
+  }).join('');
+}
+
+function showStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.wizard').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(`step${n}`);
+  if (el) el.classList.add('active');
+
+  for (let i = 1; i <= 5; i++) {
+    const dot = document.getElementById(`pdot${i}`);
+    const key = STEP_KEYS[i];
+    if (!dot) continue;
+    if (state[key]) {
+      dot.parentElement.className = 'progress-step done';
+      dot.className = 'progress-dot';
+      dot.textContent = '✓';
+    } else if (i === n) {
+      dot.parentElement.className = 'progress-step active';
+      dot.className = 'progress-dot';
+      dot.textContent = i;
+    } else {
+      dot.parentElement.className = 'progress-step';
+      dot.className = 'progress-dot';
+      dot.textContent = i;
+    }
+  }
+  window.scrollTo({ top: 200, behavior: 'smooth' });
 }
 
 function goStep(n) {
-  // validate current step
-  const stepKeys = { 1: 'district', 2: 'residency', 3: 'academic', 4: 'preference', 5: 'goal' };
-  const curKey = stepKeys[state.step];
-  if (n > state.step && !state.selections[curKey]) return;
-
-  state.step = n;
-  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
-  document.querySelector(`[data-step="${n}"]`).classList.add('active');
-
-  // update indicators
-  for (let i = 1; i <= 5; i++) {
-    const dot = document.getElementById(`dot${i}`);
-    const line = document.getElementById(`line${i}`);
-    const sk = stepKeys[i];
-    if (state.selections[sk]) {
-      dot.className = 'step-dot done';
-      if (line) line.className = 'step-line done';
-    } else if (i === n) {
-      dot.className = 'step-dot active';
-    } else {
-      dot.className = 'step-dot pending';
-      if (line) line.className = 'step-line pending';
+  if (n > currentStep) {
+    const key = STEP_KEYS[currentStep];
+    if (!state[key]) {
+      showToast('请先完成当前步骤的选择');
+      return;
     }
   }
-  document.getElementById('stepCounter').textContent = `${n}/5`;
-  // scroll to top
-  window.scrollTo({ top: 100, behavior: 'smooth' });
+  showStep(n);
 }
 
-// ============ RESULT LOGIC ============
-function generateResult() {
-  const s = state.selections;
-  if (!s.district || !s.residency || !s.academic || !s.preference || !s.goal) return;
+function startWizard() {
+  document.querySelector('.hero').style.display = 'none';
+  document.getElementById('progressWrap').classList.add('active');
+  document.getElementById('resetBar').classList.add('active');
+  showStep(1);
+}
 
-  goStep(5);
-  document.getElementById('wizard').classList.remove('active');
-  document.getElementById('result').classList.add('active');
-  document.getElementById('stepsBar').classList.remove('active');
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 2500);
+}
+
+// ============ RESULT ============
+function generateResult() {
+  const s = state;
+  if (!s.district || !s.residency || !s.academic || !s.preference || !s.goal) {
+    showToast('请完成所有步骤的选择');
+    return;
+  }
+
+  document.querySelector('.hero').style.display = 'none';
+  document.getElementById('progressWrap').classList.remove('active');
+  document.getElementById('resetBar').classList.remove('active');
+  document.querySelectorAll('.wizard').forEach(el => el.classList.remove('active'));
+  document.getElementById('resultsWrap').classList.add('active');
 
   const district = DATA.districts.find(d => d.id === s.district);
   const residency = DATA.residency.find(r => r.id === s.residency);
@@ -540,49 +529,38 @@ function generateResult() {
   const pref = DATA.preference.find(p => p.id === s.preference);
   const goal = DATA.goal.find(g => g.id === s.goal);
 
-  // Summary
-  const summary = document.getElementById('resultSummary');
-  summary.innerHTML = `
-    <h3>📊 你的选择概览</h3>
-    <p style="margin-bottom:12px;font-size:13px;color:var(--text2)">
-      ${district.name} · ${residency.title} · ${academic.title} · ${pref.title} · ${goal.title}
-    </p>
-    <div class="path">${getPathTitle(s)}</div>
-    <div class="brief">${getPathBrief(s)}</div>
+  const lvMap = {'顶级':'🔴','优质':'🟡','中等':'🟢','发展':'🔵'};
+
+  document.getElementById('resultSummary').innerHTML = `
+    <h2>📊 你的选择概览</h2>
+    <div class="selected-tags">
+      所在区：${district.name} ${lvMap[district.level]||''}${district.level} &nbsp;·&nbsp;
+      户籍：${residency.title.replace(/^[^\s]+\s/,'')} &nbsp;·&nbsp;
+      学业：${academic.title.replace(/^[^\s]+\s/,'')} &nbsp;·&nbsp;
+      偏好：${pref.title.replace(/^[^\s]+\s/,'')} &nbsp;·&nbsp;
+      目标：${goal.title.replace(/^[^\s]+\s/,'')}
+    </div>
+    <div class="path-title">${getPathTitle(s)}</div>
+    <div class="path-brief">${getPathBrief(s)}</div>
   `;
 
-  // Timeline
   const tl = document.getElementById('timelineContent');
   tl.innerHTML = getTimeline(s).map(t => `
     <div class="timeline-item">
-      <div class="time">${t.time}</div>
-      <div class="event">${t.event}</div>
-      ${t.detail ? `<div class="detail">${t.detail}</div>` : ''}
+      <div class="tl-time">${t.time}</div>
+      <div class="tl-event">${t.event}</div>
+      ${t.detail ? `<div class="tl-detail">${t.detail}</div>` : ''}
     </div>
   `).join('');
 
-  // Prep
   document.getElementById('prepContent').innerHTML = getPrep(s).map(p => `<li>${p}</li>`).join('');
-  // Risk
   document.getElementById('riskContent').innerHTML = getRisk(s).map(r => `<li>${r}</li>`).join('');
-  // Tips
   document.getElementById('tipsContent').innerHTML = getTips(s).map(t => `<li>${t}</li>`).join('');
-
-  // confetti
   launchConfetti();
-}
-
-function getDistrictLevel(d) {
-  const levels = { '顶级': 4, '优质': 3, '中等': 2, '发展': 1 };
-  return levels[d?.level] || 0;
 }
 
 function getPathTitle(s) {
   const district = DATA.districts.find(d => d.id === s.district);
-  const pref = DATA.preference.find(p => p.id === s.preference);
-  const goal = DATA.goal.find(g => g.id === s.goal);
-  const residency = DATA.residency.find(r => r.id === s.residency);
-
   if (s.preference === 'special') return '🌟 三公/特殊类学校冲刺方案';
   if (s.preference === 'private') return '🎲 民办摇号+公办保底双线方案';
   if (s.preference === 'through') return '🔗 一贯制直升优先方案';
@@ -599,14 +577,13 @@ function getPathBrief(s) {
   const academic = DATA.academic.find(a => a.id === s.academic);
   const pref = DATA.preference.find(p => p.id === s.preference);
   const goal = DATA.goal.find(g => g.id === s.goal);
-
+  const levelOrder = { '顶级':4,'优质':3,'中等':2,'发展':1 };
   const briefs = [];
-
   if (s.residency === 'yh') {
-    if (getDistrictLevel(district) >= 3) {
+    if (levelOrder[district.level] >= 3) {
       briefs.push(`✅ ${district.name}教育资源丰富，「人户一致」对口排序优先级最高，公办保底条件优越。`);
     } else {
-      briefs.push(`✅ 「人户一致」对口排序最优，但${district.name}优质公办资源相对有限，需积极考虑跨区或民办选项。`);
+      briefs.push(`✅ 「人户一致」对口排序最优，但${district.name}优质公办资源相对有限，建议积极考虑跨区或民办选项。`);
     }
   } else if (s.residency === 'yh_same') {
     briefs.push(`⚠️ 同区人户分离，对口排序低于人户一致，需确认具体对口中学校区是否有余额。`);
@@ -617,63 +594,48 @@ function getPathBrief(s) {
   } else {
     briefs.push(`📄 非沪籍积分未达标，入学选择受限。建议尽早积分达标或考虑国际学校/民办学校路径。`);
   }
-
   if (s.preference === 'private') {
-    if (getDistrictLevel(district) >= 3) {
+    if (levelOrder[district.level] >= 3) {
       briefs.push(`🏫 所在区民办资源丰富，摇号中签率约10%-30%，建议选择2-3所目标校阶梯填报。`);
     } else {
       briefs.push(`🏫 所在区民办选择有限，可关注全市招生民办学校（如华育、兰生等可住宿校），但竞争更激烈。`);
     }
   }
-
   if (s.goal === 'elite' && s.academic !== 'top' && s.academic !== 'good') {
-    briefs.push(`⚠️ 目标设为名校冲刺，但当前学业水平为「${academic.title}」，建议务实评估差距，制定学业提升计划。`);
+    briefs.push(`⚠️ 目标设为名校冲刺，但当前学业水平为「${academic.title.replace(/^[^\s]+\s/,'')}」，建议务实评估差距，制定学业提升计划。`);
   }
-
   if (s.preference === 'special') {
     briefs.push(`🌟 三公学校（上外附中、上实、浦外）全市招生，报名人数多录取率极低（约5%），需提前1-2年准备。建议三公+公办对口双保险。`);
   }
-
   return briefs.join('<br><br>');
 }
 
 function getTimeline(s) {
   const items = [
-    { time: '五年级·上（9-12月）', event: '政策学习与定位', detail: '了解所在区最新小升初政策，明确目标校范围，评估孩子定位' },
-    { time: '五年级·寒假（1-2月）', event: '材料准备与目标确认', detail: '整理户籍/房产/获奖证书等材料，确认最终升学路径' },
+    {time:'五年级·上（9-12月）',event:'政策学习与定位',detail:'了解所在区最新小升初政策，明确目标校范围，评估孩子定位'},
+    {time:'五年级·寒假（1-2月）',event:'材料准备与目标确认',detail:'整理户籍/房产/获奖证书等材料，确认最终升学路径'}
   ];
-
   if (s.preference === 'private' || s.preference === 'special') {
-    items.push({ time: '五年级·3月', event: '民办/三公招生简章发布', detail: '关注目标民办学校和三公学校的招生简章发布' });
-    items.push({ time: '五年级·4月', event: '网上报名', detail: '上海市义务教育入学报名系统开放，按政策完成网上报名' });
-    items.push({ time: '五年级·5月', event: '民办摇号/三公面谈', detail: '民办摇号：报名超额则摇号录取；三公：材料审核+面谈评估' });
-    items.push({ time: '五年级·5月底', event: '录取结果', detail: '民办摇号/三公录取结果公布。未录取→进入公办对口或统筹' });
+    items.push({time:'五年级·3月',event:'民办/三公招生简章发布',detail:'关注目标校招生简章'});
+    items.push({time:'五年级·4月',event:'网上报名',detail:'上海市义务教育入学报名系统开放'});
+    items.push({time:'五年级·5月',event:'民办摇号/三公面谈',detail:'民办摇号、三公材料审核+面谈评估'});
+    items.push({time:'五年级·5月底',event:'录取结果公布',detail:'未录取→进入公办对口或统筹'});
   } else {
-    items.push({ time: '五年级·3-4月', event: '公办对口信息核对', detail: '各区发布公办初中对口方案，核对户籍/房产信息' });
-    items.push({ time: '五年级·5月', event: '公办对口入学确认', detail: '按户籍/房产对口方案，确认入学学校' });
+    items.push({time:'五年级·3-4月',event:'公办对口信息核对',detail:'各区发布公办初中对口方案'});
+    items.push({time:'五年级·5月',event:'公办对口确认',detail:'按方案确认入学学校'});
   }
-
-  items.push({ time: '五年级·6-7月', event: '录取通知书与分班', detail: '收到录取通知书，部分学校进行分班考/摸底测试' });
-  items.push({ time: '五年级·暑假', event: '小初衔接准备', detail: '初中学习习惯调整、暑期预习、心理适应准备' });
-
-  if (s.goal === 'talent') {
-    items.push({ time: '持续进行', event: '特长训练不间断', detail: '每周保持特长训练，关注初中特长/社团招生通道' });
-  }
-
+  items.push({time:'五年级·6-7月',event:'录取通知书与分班',detail:'分班考/摸底测试'});
+  items.push({time:'五年级·暑假',event:'小初衔接准备',detail:'初中学习习惯调整、暑期预习'});
+  if (s.goal === 'talent') items.push({time:'持续进行',event:'特长训练不间断',detail:'每周保持训练，关注初中特长招生通道'});
   return items;
 }
 
 function getPrep(s) {
   const list = [];
-  if (s.residency === 'yh') {
-    list.push('确认户口本、房产证信息一致，如有变更需提前办理');
-  } else if (s.residency === 'yh_same' || s.residency === 'yh_diff') {
-    list.push('提前决定以户籍还是房产作为入学依据，咨询所在区教育局确认具体要求');
-  } else if (s.residency === 'jfz_120') {
-    list.push('确认居住证120分积分有效且在有效期内，提前准备积分通知单');
-  } else {
-    list.push('尽快办理居住证120分积分，或了解民办学校/国际学校等其他入学途径');
-  }
+  if (s.residency === 'yh') list.push('确认户口本、房产证信息一致，如有变更提前办理');
+  else if (s.residency === 'yh_same' || s.residency === 'yh_diff') list.push('提前决定以户籍还是房产作为入学依据，咨询所在区教育局确认具体要求');
+  else if (s.residency === 'jfz_120') list.push('确认居住证120分积分有效且在有效期内，提前准备积分通知单');
+  else list.push('尽快办理居住证120分积分，或了解民办学校/国际学校等其他入学途径');
 
   if (s.preference === 'private') {
     list.push('研究目标民办学校往年招生人数、报名人数、中签率，制定梯度填报策略');
@@ -683,126 +645,95 @@ function getPrep(s) {
     list.push('提前1-2年了解三公学校招生要求，针对性准备面谈/评估内容');
     list.push('三公学校对英语、数学、综合素质要求较高，建议提前强化训练');
   }
-  if (s.goal === 'elite') {
-    list.push('关注目标学校的分班考安排，暑假提前准备分班考试内容');
-  }
+  if (s.goal === 'elite') list.push('关注目标学校的分班考安排，暑假提前准备分班考试内容');
   if (s.goal === 'talent') {
     list.push('整理特长获奖证书/考级证书/作品集，部分学校有特长招生通道');
     list.push('关注上海市青少年科技创新大赛、艺术单项比赛等官方赛事');
   }
   if (s.goal === 'intl' || s.preference === 'international') {
-    list.push('确认目标国际学校的招生要求和考试安排（一般在每年10月-次年3月）');
+    list.push('确认目标国际学校的招生要求和考试安排（每年10月-次年3月）');
     list.push('国际学校对英语能力要求较高，建议提前强化英语听说读写');
   }
-
   list.push('关注「上海市教委」和所在区教育局官网，及时获取最新政策动态');
   list.push('加入所在区家长交流群，获取一手信息和经验分享');
-
   return list;
 }
 
 function getRisk(s) {
   const list = [];
-
   if (s.preference === 'private') {
     list.push('⚠️ 民办摇号存在不确定性，中签率一般在10%-30%，必须准备公办保底方案');
-    if (s.residency !== 'yh') {
-      list.push('⚠️ 非人户一致情况下，民办未录取后回公办可能面临统筹风险');
-    }
+    if (s.residency !== 'yh') list.push('⚠️ 非人户一致情况下，民办未录取后回公办可能面临统筹风险');
   }
-  if (s.preference === 'special') {
-    list.push('⚠️ 三公学校录取率极低（约5%），千万不要孤注一掷，必须准备第二方案');
-  }
-  if (s.goal === 'elite' && s.academic !== 'top') {
-    list.push('⚠️ 名校冲刺目标与现实学业水平存在差距，建议制定梯度目标，避免过度焦虑');
-  }
-  if (s.residency === 'jfz_other') {
-    list.push('⚠️ 入学选择范围较小，建议尽早办理居住证积分或寻求其他入学途径');
-  }
+  if (s.preference === 'special') list.push('⚠️ 三公学校录取率极低（约5%），千万不要孤注一掷，必须准备第二方案');
+  if (s.goal === 'elite' && s.academic !== 'top') list.push('⚠️ 名校冲刺目标与现实学业水平存在差距，建议制定梯度目标，避免过度焦虑');
+  if (s.residency === 'jfz_other') list.push('⚠️ 入学选择范围较小，建议尽早办理居住证积分或寻求其他入学途径');
   if (s.preference === 'international') {
     list.push('⚠️ 国际学校学费较高（一般15-30万/年），请确认家庭长期经济承受能力');
     list.push('⚠️ 选择国际路线后，中考/高考路径的兼容性会降低，需明确长期规划');
   }
-
-  if (list.length === 0) {
-    list.push('✅ 你的选择组合风险较低，按部就班准备即可');
-  }
+  if (list.length === 0) list.push('✅ 你的选择组合风险较低，按部就班准备即可');
   return list;
 }
 
 function getTips(s) {
-  const district = DATA.districts.find(d => d.id === s.district);
   const tips = [];
-
-  const districtTips = {
-    'xh': '徐汇区：民办教育强区（华育、世外等），但公办资源同样优质。人户一致排序严格，学区房需提前确认',
-    'yp': '杨浦区：高校附属学校资源丰富（复旦附中、交大附中等），民办和公办均强。注意各校对口方案每年微调',
-    'pd': '浦东新区：面积大、学校多但差异极大。张江集团、建平系等优质公办竞争激烈，民办有福山正达等。注意对口地段划分',
-    'ja': '静安区：原静安和闸北合并后教育均衡度提升。公办学校整体质量较高，民办选择相对较少',
-    'hp': '黄浦区：公办资源优质且密集，小升初对口方案相对稳定。民办有永昌、立达等选择',
-    'hk': '虹口区：民办教育有特色（上外附中在虹口），公办资源均衡。注意三公报名不受区限制',
-    'cn': '长宁区：实行划片电脑派位，与其他区差异较大。需准确了解所在片区的派位方案',
-    'pt': '普陀区：一贯制学校较多（晋元附校、曹二附校等），选择一贯制可省去升学焦虑',
-    'mh': '闵行区：人口大区、竞争激烈。民办资源丰富（上宝、文来等），但优质公办竞争同样激烈',
-    'bs': '宝山区：教育资源正在快速提升，行知二中、宝山实验等有一定口碑。注意人户一致要求',
-    'jd': '嘉定区：新城建设带动教育配套，交大附中嘉定分校等优质资源入驻。民办有华二初级等',
-    'sj': '松江区：人口增长快但优质教育资源相对稀缺。建议有条件者关注全市招生优质民办',
-    'qp': '青浦区：国际学校资源丰富（世外青浦、平和青浦等）。公办教育正在追赶中',
-    'fx': '奉贤区：教育资源持续投入，奉贤实验中学等有一定质量。如条件允许可考虑跨区选项',
-    'js': '金山区：特色学校有亮点，如金山世外等。整体教育资源和市区有差距',
-    'cm': '崇明区：教育资源有限，优质初中选择少。建议如条件允许考虑市区入学'
+  const dt = {
+    'xh':'徐汇区：民办强区（华育、世外等），公办同样优质。人户一致排序严格，学区房需提前确认',
+    'yp':'杨浦区：高校附属学校密集（复旦附中、交大附中等），民办和公办均强。对口方案每年微调',
+    'pd':'浦东新区：面积大、学校差异大。张江集团、建平系竞争激烈，注意对口地段划分',
+    'ja':'静安区：原静安闸北合并后教育均衡度提升。公办整体质量较高，民办选择相对较少',
+    'hp':'黄浦区：公办资源优质密集，对口方案相对稳定。民办有永昌、立达等',
+    'hk':'虹口区：民办教育有特色，上外附中在本区。注意三公报名不受区限制',
+    'cn':'长宁区：实行划片电脑派位，需准确了解所在片区派位方案',
+    'pt':'普陀区：一贯制学校较多（晋元附校、曹二附校等），选择一贯制可省去升学焦虑',
+    'mh':'闵行区：人口大区竞争激烈。民办资源丰富（上宝、文来等），公办同样竞争激烈',
+    'bs':'宝山区：教育资源快速提升，行知二中、宝山实验有一定口碑',
+    'jd':'嘉定区：新城建设带动教育配套，交大附中嘉定分校等优质资源入驻',
+    'sj':'松江区：人口增长快但优质资源相对稀缺，建议关注全市招生优质民办',
+    'qp':'青浦区：国际学校资源丰富（世外青浦、平和青浦等），公办教育正在追赶',
+    'fx':'奉贤区：教育资源持续投入，奉贤实验中学有一定质量',
+    'js':'金山区：特色学校有亮点（金山世外等），整体与市区有差距',
+    'cm':'崇明区：优质初中选择有限，条件允许建议考虑市区入学'
   };
-
-  if (districtTips[s.district]) {
-    tips.push(`📍 ${districtTips[s.district]}`);
-  }
-
-  tips.push('📌 每年3-4月各区发布当年义务教育招生政策，请届时密切关注，以最新政策为准');
+  if (dt[s.district]) tips.push(`📍 ${dt[s.district]}`);
+  tips.push('📌 每年3-4月各区发布当年义务教育招生政策，届时以最新政策为准');
   tips.push('📌 上海市义务教育入学报名系统（shrxbm.shmec.gov.cn）是官方唯一报名通道');
-  tips.push('📌 建议同时关注目标学校官网/公众号，获取开放日活动信息');
-
   return tips;
 }
 
 // ============ CONFETTI ============
 function launchConfetti() {
-  const container = document.createElement('div');
-  container.className = 'confetti-container';
-  document.body.appendChild(container);
-  const colors = ['#60a5fa','#f0c040','#22c55e','#e34a4a','#a855f7','#ec4899'];
-  for (let i = 0; i < 60; i++) {
-    const piece = document.createElement('div');
-    piece.className = 'confetti-piece';
-    piece.style.left = Math.random() * 100 + '%';
-    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-    piece.style.animationDelay = Math.random() * 2 + 's';
-    piece.style.width = (Math.random() * 6 + 4) + 'px';
-    piece.style.height = (Math.random() * 6 + 4) + 'px';
-    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-    container.appendChild(piece);
+  const c = document.createElement('div'); c.className = 'confetti-container';
+  document.body.appendChild(c);
+  const colors = ['#004098','#c8972b','#27ae60','#e74c3c','#9b59b6','#3498db'];
+  for (let i = 0; i < 50; i++) {
+    const p = document.createElement('div'); p.className = 'confetti-piece';
+    p.style.left = Math.random()*100+'%'; p.style.background = colors[i%colors.length];
+    p.style.animationDelay = Math.random()*2+'s';
+    p.style.width = (Math.random()*6+4)+'px'; p.style.height = (Math.random()*6+4)+'px';
+    c.appendChild(p);
   }
-  setTimeout(() => container.remove(), 5000);
+  setTimeout(() => c.remove(), 5000);
 }
 
 function restart() {
-  state.selections = {};
-  state.step = 1;
-  document.getElementById('result').classList.remove('active');
-  document.getElementById('hero').style.display = '';
-  // reset all options
-  document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+  Object.keys(state).forEach(k => delete state[k]);
+  currentStep = 1;
+  document.getElementById('resultsWrap').classList.remove('active');
+  document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
   for (let i = 1; i <= 5; i++) {
     document.getElementById(`step${i}Next`).disabled = true;
-    document.getElementById(`dot${i}`).className = 'step-dot' + (i === 1 ? ' active' : ' pending');
-    const line = document.getElementById(`line${i}`);
-    if (line) line.className = 'step-line pending';
   }
-  document.getElementById('stepCounter').textContent = '1/5';
+  document.querySelector('.hero').style.display = '';
+  document.getElementById('progressWrap').classList.remove('active');
+  document.getElementById('resetBar').classList.remove('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ============ INIT ============
-initSteps();
+// ============ BOOT ============
+initGrids();
+buildProgress();
 </script>
 </body>
 </html>
